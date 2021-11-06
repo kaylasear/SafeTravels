@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="taglibs-standard-spec-1.2.5">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/taglibs-standard-spec-1.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
