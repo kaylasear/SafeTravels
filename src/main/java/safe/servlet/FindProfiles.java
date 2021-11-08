@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * 4. Point your browser to http://localhost:8080/BlogApplication/findusers.
  */
 @WebServlet("/profile")
-public class searchProfiles extends HttpServlet {
+public class FindProfiles extends HttpServlet {
 
 	protected ProfileDao profileDao;
 
@@ -66,7 +66,7 @@ public class searchProfiles extends HttpServlet {
       messages.put("success", "Displaying results for " + location);
       // Save the previous search term, so it can be used as the default
       // in the input box when rendering FindUsers.jsp.
-      messages.put("previousFirstName", location);
+      messages.put("previous location", location);
     }
     req.setAttribute("profiles", profiles);
 

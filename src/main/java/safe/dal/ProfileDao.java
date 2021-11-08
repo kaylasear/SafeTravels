@@ -34,21 +34,33 @@ public class ProfileDao {
 
 		List<Profile> profiles = new ArrayList<Profile>();
 		String county = location.concat(" county");
-		String selectLocation =
-			"SELECT ProfileId, Date, CovidCases, CovidDeaths " +
-			"FROM Profile " +
-		 	"LEFT OUTER JOIN CountyProfile USING (ProfileId) " +
-			"LEFT OUTER JOIN StateProfile USING (ProfileId) " +
-			"WHERE StateName=? OR StateCode=? OR CountyName=?;";
+		String selectLocation = "";
+		if (location.toLowerCase().equals("all")) {
+			selectLocation =
+					"SELECT ProfileId, Date, CovidCases, CovidDeaths " +
+							"FROM Profile " +
+							"LEFT OUTER JOIN CountyProfile USING (ProfileId) " +
+							"LEFT OUTER JOIN StateProfile USING (ProfileId);";
+		}
+		else {
+			selectLocation =
+					"SELECT ProfileId, Date, CovidCases, CovidDeaths " +
+							"FROM Profile " +
+							"LEFT OUTER JOIN CountyProfile USING (ProfileId) " +
+							"LEFT OUTER JOIN StateProfile USING (ProfileId) " +
+							"WHERE StateName=? OR StateCode=? OR CountyName=?;";
+		}
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
 		ResultSet results = null;
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectLocation);
-			selectStmt.setString(1, location);
-			selectStmt.setString(2, location);
-			selectStmt.setString(3, location.concat(" county"));
+			if (!location.toLowerCase().equals("all")) {
+				selectStmt.setString(1, location);
+				selectStmt.setString(2, location);
+				selectStmt.setString(3, location.concat(" county"));
+			}
 			results = selectStmt.executeQuery();
 			while (results.next()) {
 				Integer profileId = results.getInt("ProfileId");
@@ -58,7 +70,6 @@ public class ProfileDao {
 
 				Profile profile = new Profile(profileId, date, covidCases, covidDeaths);
 				profiles.add(profile);
-				return profiles;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,7 +85,7 @@ public class ProfileDao {
 				results.close();
 			}
 		}
-		return null;
+		return profiles;
 	}
 
 }
