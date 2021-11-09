@@ -65,9 +65,7 @@ public class UserDao {
      */
     public User getUserByUserName(String userName) throws SQLException {
         String selectUser =
-                "SELECT Users.UserName AS UserName, Email" +
-                        "FROM Users" +
-                        "WHERE UserName = ?;";
+                "SELECT Users.UserName AS UserName, Email, Password FROM Users WHERE UserName = ?;";
         Connection connection = null;
         PreparedStatement selectStmt = null;
         ResultSet result = null;
