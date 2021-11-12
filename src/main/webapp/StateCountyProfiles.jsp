@@ -30,11 +30,16 @@
             <td><c:out value="${countyProfiles.getProfileId()}" /></td>
             <td><c:out value="${countyProfiles.getCountyName()}" /></td>
             <td><c:out value="${countyProfiles.getCountyFIPS()}" /></td>
-            <td><c:out value="${countyProfiles.getMaskUseId()}" /></td>
+            <td>
+                <a href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
+                    Data
+                </a>
+            </td>
             <td><c:out value="${countyProfiles.getStateProfileId()}" /></td>
             <td><c:out value="${countyProfiles.getNationalProfileId()}" /></td>
             <td><c:out value="${countyProfiles.getVaccinationId()}" /></td>
             <td><c:out value="${countyProfiles.getPolicyId()}" /></td>
+
 
         </tr>
     </c:forEach>
