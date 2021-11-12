@@ -43,7 +43,9 @@
                     <td><c:out value="${stateProfile.getCovidCases()}" /></td>
                     <td><c:out value="${stateProfile.getCovidDeaths()}" /></td>
                     <td><c:out value="${stateProfile.getSafetyRating()}" /></td>
-                    <td><c:out value="${stateProfile.getNumCounties()}" /></td>
+                    <td><a href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            ${stateProfile.getNumCounties()}
+                    </a></td>
                 </tr>
             </c:forEach>
        </table>
