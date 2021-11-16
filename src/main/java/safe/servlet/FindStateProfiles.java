@@ -66,24 +66,22 @@ public class FindStateProfiles extends HttpServlet {
     // Map for storing messages.
     Map<String, String> messages = new HashMap<String, String>();
     req.setAttribute("messages", messages);
-
     List<StateProfile> stateProfiles = new ArrayList<>();
-
     // Retrieve and validate name.
     // firstname is retrieved from the form POST submission. By default, it
     // is populated by the URL query string (in FindUsers.jsp).
     String location = req.getParameter("location");
     if (location == null || location.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid name.");
+      messages.put("success", "Please enter a valid location.");
     } else {
-      // Retrieve BlogUsers, and store as a message.
       try {
-        stateProfiles = stateProfileDao.getStateProfiles();
+       StateProfile stateProfile = stateProfileDao.getStateProfileByName(location);
+       stateProfiles.add(stateProfile);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for State Profiles");
+      messages.put("success", "Displaying results for " + location);
     }
     req.setAttribute("stateProfiles", stateProfiles);
 

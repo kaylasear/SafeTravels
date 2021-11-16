@@ -1,12 +1,10 @@
 package safe.dal;
 
-import java.math.BigInteger;
 import safe.model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,12 +28,12 @@ public class ProfileDao {
 	}
 
 
-	public List<Profile> getProfileByLocation(String location) throws SQLException {
+	public List<Profile> getProfileByName(String name) throws SQLException {
 
 		List<Profile> profiles = new ArrayList<Profile>();
-		String county = location.concat(" county");
+		String county = name.concat(" county");
 		String selectLocation = "";
-		if (location.toLowerCase().equals("all")) {
+		if (name.toLowerCase().equals("all")) {
 			selectLocation =
 					"SELECT ProfileId, Date, CovidCases, CovidDeaths " +
 							"FROM Profile " +
@@ -56,20 +54,14 @@ public class ProfileDao {
 		try {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(selectLocation);
-			if (!location.toLowerCase().equals("all")) {
-				selectStmt.setString(1, location);
-				selectStmt.setString(2, location);
-				selectStmt.setString(3, location.concat(" county"));
+			if (!name.toLowerCase().equals("all")) {
+				selectStmt.setString(1, name);
+				selectStmt.setString(2, name);
+				selectStmt.setString(3, name.concat(" county"));
 			}
 			results = selectStmt.executeQuery();
 			while (results.next()) {
-				Integer profileId = results.getInt("ProfileId");
-				Date date = new Date(results.getTimestamp("Date").getTime());
-				Integer covidCases = results.getInt("CovidCases");
-				Integer covidDeaths = results.getInt("covidDeaths");
-
-				Profile profile = new Profile(profileId, date, covidCases, covidDeaths);
-				profiles.add(profile);
+				profiles.add(buildProfile(results));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,6 +78,54 @@ public class ProfileDao {
 			}
 		}
 		return profiles;
+	}
+
+
+
+	public Profile getProfileById(Integer profileId) throws SQLException {
+		String selectLocation =
+				"SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
+						"FROM Profile " +
+						"INNER JOIN StateProfile USING (ProfileId) " +
+						"WHERE ProfileId=?;";
+
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectLocation);
+			selectStmt.setInt(1, profileId);
+			results = selectStmt.executeQuery();
+			if (results.next()) {
+				return buildProfile(results);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null;
+	}
+
+	private Profile buildProfile(ResultSet results) throws SQLException {
+		Integer profileId = results.getInt("ProfileId");
+		Date date = new Date(results.getTimestamp("Date").getTime());
+		Integer covidCases = results.getInt("CovidCases");
+		Integer covidDeaths = results.getInt("covidDeaths");
+
+		Profile profile = new Profile(profileId, date, covidCases, covidDeaths);
+
+		return profile;
 	}
 
 }

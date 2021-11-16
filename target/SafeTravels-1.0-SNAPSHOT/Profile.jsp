@@ -11,10 +11,10 @@
 <title>Safe Travels US Profile</title>
 </head>
 <body>
-	<form action="stateprofile" method="post">
-		<h1>State Profile Data</h1>
+	<form action="profile" method="post">
+		<h1>Search for Covid-19 data by state or county</h1>
 		<p>
-			<label for="location">See all States</label>
+			<label for="location">Enter a State, County or City</label>
 			<input id="location" name="location" value="${fn:escapeXml(param.location)}">
 		</p>
 		<p>
@@ -24,26 +24,20 @@
 		</p>
 	</form>
 	<br/>
-	<h1>State Data</h1>
+	<h1>Location Data</h1>
         <table border="1">
             <tr>
                 <th>ID</th>
-<%--                <th>Date</th>--%>
-                <th>State Name</th>
+                <th>Date</th>
                 <th>Covid Cases</th>
                 <th>Covid Deaths</th>
-                <th>Safety Rating</th>
-                <th>Total Counties</th>
             </tr>
-            <c:forEach items="${stateProfiles}" var="stateProfile" >
+            <c:forEach items="${profiles}" var="profile" >
                 <tr>
-                    <td><c:out value="${stateProfile.getProfileId()}" /></td>
-<%--                    <td><fmt:formatDate value="${stateProfile.getDate()}" pattern="yyyy-MM-dd"/></td>--%>
-                    <td><c:out value="${stateProfile.getStateName()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidCases()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidDeaths()}" /></td>
-                    <td><c:out value="${stateProfile.getSafetyRating()}" /></td>
-                    <td><c:out value="${stateProfile.getNumCounties()}" /></td>
+                    <td><c:out value="${profile.getProfileId()}" /></td>
+                    <td><fmt:formatDate value="${profile.getDate()}" pattern="yyyy-MM-dd"/></td>
+                    <td><c:out value="${profile.getCovidCases()}" /></td>
+                    <td><c:out value="${profile.getCovidDeaths()}" /></td>
                 </tr>
             </c:forEach>
        </table>

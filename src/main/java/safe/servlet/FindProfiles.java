@@ -58,7 +58,7 @@ public class FindProfiles extends HttpServlet {
     } else {
       // Retrieve location data, and store as a message.
       try {
-        profiles = profileDao.getProfileByLocation(location);
+        profiles = profileDao.getProfileByName(location);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
@@ -91,7 +91,7 @@ public class FindProfiles extends HttpServlet {
     } else {
       // Retrieve BlogUsers, and store as a message.
       try {
-        profiles = profileDao.getProfileByLocation(location);
+        profiles = profileDao.getProfileByName(location);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
