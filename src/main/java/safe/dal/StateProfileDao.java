@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import safe.model.StateProfile;
 
+/**
+ * StateProfile DAO
+ */
 public class StateProfileDao extends ProfileDao {
   private static StateProfileDao instance = null;
   protected StateProfileDao() {super(); }
@@ -19,6 +22,11 @@ public class StateProfileDao extends ProfileDao {
     return instance;
   }
 
+  /**
+   * Gets a list of all state profiles
+   * @return List of all state profiles
+   * @throws SQLException
+   */
   public List<StateProfile> getStateProfiles() throws SQLException {
 
     List<StateProfile> stateProfiles = new ArrayList<StateProfile>();
@@ -55,6 +63,12 @@ public class StateProfileDao extends ProfileDao {
     return stateProfiles;
   }
 
+  /**
+   * Gets a StateProfile from its name
+   * @param stateName - name of state profile
+   * @return a StateProfile object
+   * @throws SQLException
+   */
   public StateProfile getStateProfileByName(String stateName) throws SQLException {
     String selectState =
         "SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
@@ -91,7 +105,12 @@ public class StateProfileDao extends ProfileDao {
     return null;
   }
 
-
+  /**
+   * Gets a StateProfile by its ID
+   * @param stateId - ID of StateProfile
+   * @return a StateProfile object
+   * @throws SQLException
+   */
   public StateProfile getStateProfileById(Integer stateId) throws SQLException {
     String selectState =
         "SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
@@ -127,6 +146,12 @@ public class StateProfileDao extends ProfileDao {
     return null;
   }
 
+  /**
+   * builds a StateProfile from the ResultSet
+   * @param results - ResultSet from MySQL
+   * @return a StateProfile object
+   * @throws SQLException
+   */
   private StateProfile buildStateProfile(ResultSet results) throws SQLException {
 
     Integer profileId = results.getInt("ProfileId");
@@ -144,6 +169,5 @@ public class StateProfileDao extends ProfileDao {
 
     return stateProfile;
   }
-
 
 }

@@ -50,23 +50,21 @@ public class ServeProfiles extends HttpServlet {
 
     List<Profile> profiles = new ArrayList<>();
 
-    // Retrieve and validate location.
-    // location is retrieved from the URL query string.
-    String location = req.getParameter("location");
-    if (location == null || location.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid location.");
+    String name = req.getParameter("name");
+    if (name == null || name.trim().isEmpty()) {
+      messages.put("success", "Please enter a valid name.");
     } else {
-      // Retrieve location data, and store as a message.
+      // Retrieve name data, and store as a message.
       try {
-        profiles = profileDao.getProfileByName(location);
+        profiles = profileDao.getProfileByName(name);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for " + location);
+      messages.put("success", "Displaying results for " + name);
       // Save the previous search term, so it can be used as the default
       // in the input box when rendering FindUsers.jsp.
-      messages.put("previous location", location);
+      messages.put("previous name", name);
     }
     req.setAttribute("profiles", profiles);
     req.getRequestDispatcher("/Profile.jsp").forward(req, resp);

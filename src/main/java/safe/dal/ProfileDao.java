@@ -11,11 +11,11 @@ import java.util.List;
 
 
 /**
- * Data access object (DAO) class to interact with the underlying
+ * Profile DAO
  */
 public class ProfileDao {
 	protected ConnectionManager connectionManager;
-	// Single pattern: instantiation is limited to one object.
+
 	private static ProfileDao instance = null;
 	protected ProfileDao() {
 		connectionManager = new ConnectionManager();
@@ -27,9 +27,13 @@ public class ProfileDao {
 		return instance;
 	}
 
-
+	/**
+	 * Get list of profiles by name
+	 * @param name - name of profile
+	 * @return list of matching profiles
+	 * @throws SQLException
+	 */
 	public List<Profile> getProfileByName(String name) throws SQLException {
-
 		List<Profile> profiles = new ArrayList<Profile>();
 		String county = name.concat(" county");
 		String selectLocation = "";
@@ -81,7 +85,12 @@ public class ProfileDao {
 	}
 
 
-
+	/**
+	 * Gets a Profile by its ID
+	 * @param profileId ID of Profile
+	 * @return a Profile
+	 * @throws SQLException
+	 */
 	public Profile getProfileById(Integer profileId) throws SQLException {
 		String selectLocation =
 				"SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
@@ -117,6 +126,12 @@ public class ProfileDao {
 		return null;
 	}
 
+	/**
+	 * builds an instance of Profile
+	 * @param results set of results from MySQL
+	 * @return a new Profile instance
+	 * @throws SQLException
+	 */
 	private Profile buildProfile(ResultSet results) throws SQLException {
 		Integer profileId = results.getInt("ProfileId");
 		Date date = new Date(results.getTimestamp("Date").getTime());

@@ -14,8 +14,8 @@
 	<form action="profile" method="get">
 		<h1>Search for Covid-19 data by state or county</h1>
 		<p>
-			<label for="location">Enter a State, County or City</label>
-			<input id="location" name="location" value="${fn:escapeXml(param.location)}">
+			<label for="name">Enter a State, County or City</label>
+			<input id="name" name="name" value="${fn:escapeXml(param.name)}">
 		</p>
 		<p>
 			<input type="submit">

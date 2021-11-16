@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-/**
-
- */
 @WebServlet("/stateprofile")
 public class ServeStateProfiles extends HttpServlet {
 
@@ -37,13 +34,13 @@ public class ServeStateProfiles extends HttpServlet {
 
     List<StateProfile> stateProfiles = new ArrayList<>();
 
-    String location = req.getParameter("location");
-    if (location == null || location.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid location.");
+    String stateName = req.getParameter("name");
+    if (stateName == null || stateName.trim().isEmpty()) {
+      messages.put("success", "Please enter a valid state name.");
     } else {
-      // Retrieve location data, and store as a message.
+      // Retrieve stateName data, and store as a message.
       try {
-        StateProfile stateProfile = stateProfileDao.getStateProfileByName(location);
+        StateProfile stateProfile = stateProfileDao.getStateProfileByName(stateName);
         stateProfiles.add(stateProfile);
       } catch (SQLException e) {
         e.printStackTrace();
@@ -52,7 +49,7 @@ public class ServeStateProfiles extends HttpServlet {
       messages.put("success", "Displaying results for states");
       // Save the previous search term, so it can be used as the default
       // in the input box when rendering FindUsers.jsp.
-      messages.put("previous location", location);
+      messages.put("previous stateName", stateName);
     }
     req.setAttribute("stateProfiles", stateProfiles);
     req.getRequestDispatcher("/StateProfile.jsp").forward(req, resp);
