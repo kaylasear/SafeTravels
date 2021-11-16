@@ -2,6 +2,7 @@ package safe.dal;
 
 import safe.model.CountyProfile;
 import safe.model.Profile;
+import safe.model.StateProfile;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -121,5 +122,52 @@ public class CountyProfileDao {
   }
 
 
+  public CountyProfile getCountyByCountyName(String countyName) throws SQLException {
+    String selectCounty =
+            "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
+                    "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
+                    "from countyprofile\n" +
+                    "where CountyName = ?;";
+    Connection connection = null;
+    PreparedStatement selectStmt = null;
+    ResultSet result = null;
+
+    try {
+      connection = connectionManager.getConnection();
+      selectStmt = connection.prepareStatement(selectCounty);
+      selectStmt.setString(1, countyName);
+      result = selectStmt.executeQuery();
+
+      if (result.next()) {
+        Integer ProfileId = result.getInt("ProfileId");
+        String CountyName = result.getString("CountyName");
+        Integer CountyFIPS = result.getInt("CountyFIPS");
+        Integer GeoLocation = result.getInt("GeoLocation");
+        Integer MaskUseId = result.getInt("MaskUseId");
+        Integer StateProfileId = result.getInt("StateProfileId");
+        Integer NationalProfileId = result.getInt("NationalProfileId");
+        Integer VaccinationID = result.getInt("VaccinationID");
+        Integer PolicyId = result.getInt("PolicyId");
+
+        CountyProfile countyProfile = new CountyProfile(ProfileId, CountyName, CountyFIPS, MaskUseId, StateProfileId,
+                NationalProfileId, VaccinationID, PolicyId);
+        return countyProfile;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      throw e;
+    } finally {
+      if (connection != null) {
+        connection.close();
+      }
+      if (selectStmt != null) {
+        selectStmt.close();
+      }
+      if (result != null) {
+        result.close();
+      }
+    }
+    return null;
+  }
 
 }
