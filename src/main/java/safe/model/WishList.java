@@ -4,14 +4,14 @@ public class WishList {
     protected int wishListID;
     protected User user;
     protected CityInformation cityProfile;
-    protected StateProfile stateProfileID;
-    protected CountyProfile countyProfileID;
+    protected StateProfile stateProfile;
+    protected CountyProfile countyProfile;
 
-    public WishList(User user, CityInformation cityProfile, StateProfile stateProfileID, CountyProfile countyProfileID) {
+    public WishList(User user, CityInformation cityProfile, StateProfile stateProfile, CountyProfile countyProfile) {
         this.user = user;
         this.cityProfile = cityProfile;
-        this.stateProfileID = stateProfileID;
-        this.countyProfileID = countyProfileID;
+        this.stateProfile = stateProfile;
+        this.countyProfile = countyProfile;
     }
 
     public WishList(int wishListID) {
@@ -43,18 +43,18 @@ public class WishList {
     }
 
     public StateProfile getStateProfile() {
-        return stateProfileID;
+        return stateProfile;
     }
 
-    public void setStateProfileID(StateProfile stateProfileID) {
-        this.stateProfileID = stateProfileID;
+    public void setStateProfile(StateProfile stateProfile) {
+        this.stateProfile = this.stateProfile;
     }
 
     public CountyProfile getCountyProfile() {
-        return countyProfileID;
+        return countyProfile;
     }
 
-    public void setCountyProfileID(CountyProfile countyProfileID) {
-        this.countyProfileID = countyProfileID;
+    public void setCountyProfile(CountyProfile countyProfile) {
+        this.countyProfile = countyProfile;
     }
 }
