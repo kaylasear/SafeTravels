@@ -28,7 +28,7 @@ public class Inserter {
     }
 
     ProfileDao profileDao = ProfileDao.getInstance();
-    List<Profile> profiles = profileDao.getProfileByLocation("Washington");
+    List<Profile> profiles = profileDao.getProfileByName("Washington");
     for(Profile profile: profiles){
       System.out.format("profileId:%s covCased:%s", profile.getProfileId(), profile.getCovidCases()+"\n");
     }
