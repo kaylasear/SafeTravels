@@ -11,7 +11,7 @@
 <title>Safe Travels US Profile</title>
 </head>
 <body>
-	<form action="stateprofile" method="post">
+	<form action="stateprofile" method="get">
 		<h1>State Profile Data</h1>
 		<p>
 			<label for="location">See all States</label>
@@ -43,7 +43,9 @@
                     <td><c:out value="${stateProfile.getCovidCases()}" /></td>
                     <td><c:out value="${stateProfile.getCovidDeaths()}" /></td>
                     <td><c:out value="${stateProfile.getSafetyRating()}" /></td>
-                    <td><c:out value="${stateProfile.getNumCounties()}" /></td>
+                    <td><a href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            ${stateProfile.getNumCounties()}
+                    </a></td>
                 </tr>
             </c:forEach>
        </table>

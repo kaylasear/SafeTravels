@@ -11,7 +11,7 @@
 <title>Safe Travels US Profile</title>
 </head>
 <body>
-	<form action="profile" method="post">
+	<form action="profile" method="get">
 		<h1>Search for Covid-19 data by state or county</h1>
 		<p>
 			<label for="location">Enter a State, County or City</label>
