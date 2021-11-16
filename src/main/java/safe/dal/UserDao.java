@@ -148,39 +148,6 @@ public class UserDao {
     }
 
 
-    /**
-     * Update the username of the User instance
-     * @param user - user to update
-     * @param newUserName - new email to update
-     * @return updated user
-     * @throws SQLException
-     */
-    public User updateUserName(User user, String newUserName) throws SQLException {
-        String updateEmail = "UPDATE Users SET UserName=? WHERE Email=?;";
-        Connection connection = null;
-        PreparedStatement updateStmt = null;
-
-        try {
-            connection = connectionManager.getConnection();
-            updateStmt = connection.prepareStatement(updateEmail);
-            updateStmt.setString(1, newUserName);
-            updateStmt.setString(2, user.getEmail());
-            updateStmt.executeUpdate();
-
-            user.setUserName(newUserName);
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-            if (updateStmt != null) {
-                updateStmt.close();
-            }
-        }
-    }
 
     /**
      * Update the email of the User instance
