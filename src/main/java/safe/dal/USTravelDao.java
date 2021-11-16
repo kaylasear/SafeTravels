@@ -1,5 +1,6 @@
 //package safe.dal;
 //import safe.model.Profile;
+//import safe.model.StateProfile;
 //import safe.model.USTravel;
 //import safe.model.User;
 //
@@ -8,21 +9,21 @@
 //import java.sql.ResultSet;
 //import java.sql.SQLException;
 //
-//public class USTravelsDao {
+//public class USTravelDao {
 //    protected ConnectionManager connectionManager;
 //
-//    private static USTravelsDao instance = null;
-//    protected USTravelsDao() {
+//    private static USTravelDao instance = null;
+//    protected USTravelDao() {
 //        connectionManager = new ConnectionManager();
 //    }
-//    public static USTravelsDao getInstance() {
+//    public static USTravelDao getInstance() {
 //        if (instance == null) {
-//            instance = new USTravelsDao();
+//            instance = new USTravelDao();
 //        }
 //        return instance;
 //    }
 //
-//    public USTravel getTravelStatisticsByProfileId(Profile profile) throws SQLException {
+//    public USTravel getTravelStatisticsByProfileId(StateProfile stateProfile) throws SQLException {
 //        String selectTravelStatsById = "SELECT * FROM USTravel where ProfileId=?;";
 //        Connection connection = null;
 //        PreparedStatement selectStmt = null;
@@ -35,11 +36,13 @@
 //
 //            if (result.next()) {
 //                String resultTravelID = result.getString("UserName");
-//                String email = result.getString("Email");
-//                String password = result.getString("Password");
+//                String resultTravelID = result.getString("UserName");
+//                String resultTravelID = result.getString("UserName");
+//                String resultTravelID = result.getString("UserName");
+//                String resultTravelID = result.getString("UserName");
+//                String resultTravelID = result.getString("UserName");
 //
-//                User user = new User(resultUserName, email, password);
-//                return user;
+//
 //            }
 //        } catch (SQLException e) {
 //            e.printStackTrace();

@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * 4. Point your browser to http://localhost:8080/BlogApplication/findusers.
  */
 @WebServlet("/profile")
-public class FindProfiles extends HttpServlet {
+public class ServeProfiles extends HttpServlet {
 
 	protected ProfileDao profileDao;
 
@@ -50,56 +50,23 @@ public class FindProfiles extends HttpServlet {
 
     List<Profile> profiles = new ArrayList<>();
 
-    // Retrieve and validate location.
-    // location is retrieved from the URL query string.
-    String location = req.getParameter("location");
-    if (location == null || location.trim().isEmpty()) {
-      messages.put("success", "Please enter a valid location.");
-    } else {
-      // Retrieve location data, and store as a message.
-      try {
-        profiles = profileDao.getProfileByLocation(location);
-      } catch (SQLException e) {
-        e.printStackTrace();
-        throw new IOException(e);
-      }
-      messages.put("success", "Displaying results for " + location);
-      // Save the previous search term, so it can be used as the default
-      // in the input box when rendering FindUsers.jsp.
-      messages.put("previous location", location);
-    }
-    req.setAttribute("profiles", profiles);
-
-    req.getRequestDispatcher("/Profile.jsp").forward(req, resp);
-  }
-
-  @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-    // Map for storing messages.
-    Map<String, String> messages = new HashMap<String, String>();
-    req.setAttribute("messages", messages);
-
-    List<Profile> profiles = new ArrayList<>();
-
-    // Retrieve and validate name.
-    // firstname is retrieved from the form POST submission. By default, it
-    // is populated by the URL query string (in FindUsers.jsp).
-    String location = req.getParameter("location");
-    if (location == null || location.trim().isEmpty()) {
+    String name = req.getParameter("name");
+    if (name == null || name.trim().isEmpty()) {
       messages.put("success", "Please enter a valid name.");
     } else {
-      // Retrieve BlogUsers, and store as a message.
+      // Retrieve name data, and store as a message.
       try {
-        profiles = profileDao.getProfileByLocation(location);
+        profiles = profileDao.getProfileByName(name);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for " + location);
+      messages.put("success", "Displaying results for " + name);
+      // Save the previous search term, so it can be used as the default
+      // in the input box when rendering FindUsers.jsp.
+      messages.put("previous name", name);
     }
     req.setAttribute("profiles", profiles);
-
     req.getRequestDispatcher("/Profile.jsp").forward(req, resp);
   }
 }

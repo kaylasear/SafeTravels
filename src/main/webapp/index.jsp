@@ -7,6 +7,6 @@
     <body>
         <h1><%= "SafeTravels" %></h1>
         <br/>
-        <a href="Profile.jsp">Profile</a>
+        <a href="StateProfile.jsp">Search States</a>
     </body>
 </html>
