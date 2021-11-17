@@ -50,30 +50,13 @@ public class VaccinationDao {
 				int resultCountyFIPS = results.getInt("CountyFIPS");
 				Date resultdate =  new Date(results.getTimestamp("Date").getTime());
 				Double resultVaccinationSeriesCompletePct = results.getDouble("VaccinationSeriesCompletePct");
-				BigInteger resultVaccinationSeriesCompletePop = ((BigInteger)results.getInt("VaccinationSeriesCompletePop");
+				//BigInteger resultVaccinationSeriesCompletePop = ((BigInteger)results.getInt("VaccinationSeriesCompletePop");
 				Double completenessPct = results.getDouble("CompletenessPct");
-			
-				
-				
-		public Vaccination getVaccinationByCountyName(int countyFIPS) throws SQLException {		
-				
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw e;
-		} finally {
-			if(connection != null) {
-				connection.close();
-			}
-			if(selectStmt != null) {
-				selectStmt.close();
-			}
-			if(results != null) {
-				results.close();
-			}
 		}
 		return null;
 	}
-
 }
+

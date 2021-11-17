@@ -1,17 +1,14 @@
 package safe.dal;
 
-import java.math.BigInteger;
-import safe.model.*;
+import safe.model.Review;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import safe.model.*;
 
 
 /**
@@ -24,14 +21,14 @@ public class ReviewsDao {
     protected ReviewsDao() {
         connectionManager = new ConnectionManager();
     }
-    public static ReviewDao getInstance() {
+    public static ReviewsDao getInstance() {
         if(instance == null) {
-            instance = new ProfileDao();
+            instance = new ReviewsDao();
         }
         return instance;
     }
 
-    public User createReviews(Reviews review) throws SQLException {
+    public Review createReviews(Review review) throws SQLException {
         String insertReviews = "INSERT INTO Reviews(ReviewId, UserName, Created, UserReview, Rating, ProfileId) VALUES(?, ?, ?,?,?,?);";
         Connection connection = null;
         PreparedStatement insertStmt = null;
@@ -41,7 +38,7 @@ public class ReviewsDao {
             insertStmt = connection.prepareStatement(insertReviews);
             insertStmt.setInt(1, review.getReviewId());
             insertStmt.setString(2, review.getUserName());
-            insertStmt.setTimestamp(3, new Timestamp(review.getCreated().getTime());
+            insertStmt.setTimestamp(3, new Timestamp(review.getCreated().getTime()));
             insertStmt.setString(4, review.getUserReview());
             insertStmt.setDouble(5, review.getRating());
             insertStmt.setInt(6, review.getProfileId());
@@ -60,9 +57,9 @@ public class ReviewsDao {
         }
     }
 
-    public List<Reviews> getReviewByStateName(String stateName) throws SQLException {
+    public List<Review> getReviewByStateName(String stateName) throws SQLException {
 
-        List<Reviws> reviewList = new ArrayList<Reviews>();
+        List<Review> reviewList = new ArrayList<Review>();
         String selectLocation = "SELECT Reviews.* " +
                 "FROM Reviews INNER JOIN StateProfile" +
                 "ON Reviews.ProfileId = StateProfile.stateFIPS " +
@@ -73,18 +70,18 @@ public class ReviewsDao {
 
         try {
             connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectMaskUseByCountyFIPS);
-            selectStmt.sertInt(1, stateName);
+            selectStmt = connection.prepareStatement(selectLocation);
+            selectStmt.setString(1, stateName);
             results = selectStmt.executeQuery();
 
             while (results.next()) {
                 Integer resultReviewId = results.getInt("ReviewId");
                 String resultUserName = results.getString("UserName");
                 Timestamp resultCreate = new Timestamp(results.getTimestamp("Created").getTime());
-                String resultUserReview = results.getstring("UserReview");
+                String resultUserReview = results.getString("UserReview");
                 Double resultRating = results.getDouble("Rating");
                 Integer resultProfileId = results.getInt("ProfileId");
-                Reviews resultReview = new Reviews(resultReviewId, resultUserName,resultCreate,resultUserReview,resultRating,resultProfileId);
+                Review resultReview = new Review(resultReviewId, resultUserName,resultCreate,resultUserReview,resultRating,resultProfileId);
                 reviewList.add(resultReview);
             }
         } catch (SQLException e) {
@@ -104,12 +101,10 @@ public class ReviewsDao {
         return reviewList;
     }
 
-    public List<Reviews> getReviewByUserName(String userName) throws SQLException {
+    public List<Review> getReviewByUserName(String userName) throws SQLException {
 
 
-        List<Reviws> reviewList = new ArrayList<Reviews>();
-        String county = location.concat(" county");
-        String selectLocation = "";
+        List<Review> reviewList = new ArrayList<Review>();
         String selectLocation = "SELECT * FROM Profile " +
                 "WHERE UserName = ?\n;";
         Connection connection = null;
@@ -118,18 +113,18 @@ public class ReviewsDao {
 
         try {
             connection = connectionManager.getConnection();
-            selectStmt = connection.prepareStatement(selectMaskUseByCountyFIPS);
-            selectStmt.setInt(1, profileId);
+            selectStmt = connection.prepareStatement(selectLocation);
+            selectStmt.setString(1, userName);
             results = selectStmt.executeQuery();
 
             while (results.next()) {
                 Integer resultReviewId = results.getInt("ReviewId");
                 String resultUserName = results.getString("UserName");
                 Timestamp resultCreate = new Timestamp(results.getTimestamp("Created").getTime());
-                String resultUserReview = results.getstring("UserReview");
+                String resultUserReview = results.getString("UserReview");
                 Double resultRating = results.getDouble("Rating");
                 Integer resultProfileId = results.getInt("ProfileId");
-                Reviews resultReview = new Reviews(resultReviewId, resultUserName,resultCreate,resultUserReview,resultRating,resultProfileId);
+                Review resultReview = new Review(resultReviewId, resultUserName,resultCreate,resultUserReview,resultRating,resultProfileId);
                 reviewList.add(resultReview);
             }
         } catch (SQLException e) {
