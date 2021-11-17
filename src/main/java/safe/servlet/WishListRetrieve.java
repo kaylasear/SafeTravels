@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet("/wishlistcreate")
-public class WishListCreate extends HttpServlet {
+@WebServlet("/wishlistretrieve")
+public class WishListRetrieve extends HttpServlet {
 
     protected WishListDao wishListDao;
 
@@ -40,9 +42,11 @@ public class WishListCreate extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-        req.getRequestDispatcher("/WishListCreate.jsp").forward(req, resp);
+        //Just render the JSP.
+        req.getRequestDispatcher("/WishListDelete.jsp").forward(req, resp);
     }
 
 
@@ -63,29 +67,29 @@ public class WishListCreate extends HttpServlet {
 
         // Retrieve and validate name.
         String userName = req.getParameter("username");
-        String state = req.getParameter("state");
         //String city = req.getParameter("city");
-        String county = req.getParameter("county");
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Invalid UserName");
         }
         else {
             try {
-                StateProfileDao stateProfileDao = StateProfileDao.getInstance();
-                UserDao userDao = UserDao.getInstance();
-                StateProfile stateProfile = stateProfileDao.getStateProfileByName(state);
-                User user = userDao.getUserByUserName(userName);
-                CountyProfileDao countyProfileDao = CountyProfileDao.getInstance();
-                CountyProfile countyProfile = countyProfileDao.getCountyByCountyName(county);
-                WishList wishList = new WishList(user, null, stateProfile, countyProfile);
-                wishList = wishListDao.createWishList(wishList);
-                messages.put("success", "Successfully created wishlist for user" + userName);
+                List<WishList> wishListByUser = new ArrayList<>();
+                WishListDao wishListDao = WishListDao.getInstance();
+                wishListByUser = wishListDao.getWishListByUserName(userName);
+                if(wishListByUser == null){
+                    messages.put("Title", "No wishlist for this user");
+                    //req.setAttribute("messages", messages);
+                    req.getRequestDispatcher("/WishListDelete.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("wishListByUser", wishListByUser);
+                    messages.put("success", "Successfully got wishlist for user" + userName);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
+        req.getRequestDispatcher("/WishListRetrieve.jsp").forward(req, resp);
 
-        req.getRequestDispatcher("/WishListCreate.jsp").forward(req, resp);
     }
 }

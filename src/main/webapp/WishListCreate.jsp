@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: skeerti2
-  Date: 11/16/21
-  Time: 2:02 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -26,7 +19,7 @@
     <title>Create a Wishlist</title>
 </head>
 <body>
-<h1>Create a Wishlist</h1>
+<h1>Create Wishlist For User</h1>
 <form action="wishlistcreate" method="post">
     <p>
 

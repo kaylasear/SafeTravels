@@ -7,6 +7,14 @@ public class WishList {
     protected StateProfile stateProfile;
     protected CountyProfile countyProfile;
 
+    public WishList(int wishListID, User user, CityInformation cityProfile, StateProfile stateProfile, CountyProfile countyProfile) {
+        this.wishListID = wishListID;
+        this.user = user;
+        this.cityProfile = cityProfile;
+        this.stateProfile = stateProfile;
+        this.countyProfile = countyProfile;
+    }
+
     public WishList(User user, CityInformation cityProfile, StateProfile stateProfile, CountyProfile countyProfile) {
         this.user = user;
         this.cityProfile = cityProfile;

@@ -1,9 +1,12 @@
 package safe.dal;
 
+import safe.model.StateProfile;
 import safe.model.User;
 import safe.model.WishList;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WishListDao {
     protected ConnectionManager connectionManager;
@@ -72,6 +75,71 @@ public class WishListDao {
         }
     }
 
+    public List<WishList> getWishListByUserName(String username) throws SQLException {
+        List<WishList> wishListUser = new ArrayList<WishList>();
 
+        String selectWishListUser = "SELECT * FROM WishList WHERE UserName = ?";
 
-}
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectWishListUser);
+            selectStmt.setString(1, username);
+
+            results = selectStmt.executeQuery();
+            UserDao userDao = UserDao.getInstance();
+            StateProfileDao stateProfileDao = StateProfileDao.getInstance();
+            CountyProfileDao countyProfileDao = CountyProfileDao.getInstance();
+            while (results.next()) {
+                Integer wishID = results.getInt("WishId");
+                String userName = results.getString("UserName");
+                Integer cityProfileId = results.getInt("CityProfileId");
+                Integer stateProfileID = results.getInt("StateProfileId");
+                Integer countyProfileID = results.getInt("CountyProfileId");
+                WishList wishList = new WishList(wishID, userDao.getUserByUserName(userName), null, stateProfileDao.getStateProfileById(stateProfileID),
+                       countyProfileDao.getCountyProfileByProfileId(countyProfileID));
+                wishListUser.add(wishList);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(selectStmt != null) {
+                selectStmt.close();
+            }
+            if(results != null) {
+                results.close();
+            }
+        }
+        return wishListUser;
+    }
+
+    public WishList deleteWishListByUsername(String username) throws SQLException {
+        String deleteWishList = "DELETE FROM WishList WHERE UserName =?;";
+        Connection connection = null;
+        PreparedStatement deleteStmt = null;
+
+        try {
+            connection = connectionManager.getConnection();
+            deleteStmt = connection.prepareStatement(deleteWishList);
+            deleteStmt.setString(1, username);
+            deleteStmt.executeUpdate();
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+            if (deleteStmt != null) {
+                deleteStmt.close();
+            }
+        }
+    }
+    }

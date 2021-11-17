@@ -3,21 +3,20 @@ package safe.model;
 public class USTravel {
     protected int travelID;
     protected int stateFIPS;
-    protected Profile profile;
     protected long popStayingAtHome;
     protected long popNotStayingAtHome;
     protected double percentTakingTrips;
+    protected String stateName;
+    protected int profileID;
 
-    public USTravel(int stateFIPS, Profile profile, long popStayingAtHome, long popNotStayingAtHome, double percentTakingTrips) {
+    public USTravel(int travelID, int stateFIPS, int profileID, long popStayingAtHome, long popNotStayingAtHome, double percentTakingTrips, String stateName) {
+        this.travelID = travelID;
         this.stateFIPS = stateFIPS;
-        this.profile = profile;
+        this.profileID = profileID;
         this.popStayingAtHome = popStayingAtHome;
         this.popNotStayingAtHome = popNotStayingAtHome;
         this.percentTakingTrips = percentTakingTrips;
-    }
-
-    public USTravel(int travelID) {
-        this.travelID = travelID;
+        this.stateName = stateName;
     }
 
     public int getTravelID() {
@@ -36,12 +35,12 @@ public class USTravel {
         this.stateFIPS = stateFIPS;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public int getStateProfileID() {
+        return profileID;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setStateProfile(int stateProfileID) {
+        this.profileID = stateProfileID;
     }
 
     public long getPopStayingAtHome() {
@@ -66,5 +65,13 @@ public class USTravel {
 
     public void setPercentTakingTrips(double percentTakingTrips) {
         this.percentTakingTrips = percentTakingTrips;
+    }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
     }
 }

@@ -149,53 +149,53 @@ public class StateProfileDao extends ProfileDao {
     return null;
   }
 
-  public StateProfile getStateByStateName(String statename) throws SQLException {
-    String selectStateByName =
-            "SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
-                    "FROM Profile " +
-                    "INNER JOIN StateProfile USING (ProfileId)" +
-                    "WHERE StateName = ?;";
-    Connection connection = null;
-    PreparedStatement selectStmt = null;
-    ResultSet result = null;
-
-    try {
-      connection = connectionManager.getConnection();
-      selectStmt = connection.prepareStatement(selectStateByName);
-      selectStmt.setString(1, statename);
-      result = selectStmt.executeQuery();
-
-      if (result.next()) {
-        Integer profileId = result.getInt("ProfileId");
-        Date date = new Date(result.getTimestamp("Date").getTime());
-        Integer covidCases = result.getInt("CovidCases");
-        Integer covidDeaths = result.getInt("covidDeaths");
-        Integer stateFIPS = result.getInt("StateFIPS");
-        String stateName = result.getString("StateName");
-        String stateCode = result.getString("StateCode");
-        Integer numCounties = result.getInt("NumCounties");
-        Double safetyRating = result.getDouble("SafetyRating");
-
-        StateProfile stateProfile = new StateProfile(profileId, date, covidCases, covidDeaths,
-                stateFIPS, stateName, stateCode, numCounties, safetyRating);
-        return stateProfile;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw e;
-    } finally {
-      if (connection != null) {
-        connection.close();
-      }
-      if (selectStmt != null) {
-        selectStmt.close();
-      }
-      if (result != null) {
-        result.close();
-      }
-    }
-    return null;
-  }
+//  public StateProfile getStateByStateName(String statename) throws SQLException {
+//    String selectStateByName =
+//            "SELECT ProfileId, Date, StateFIPS, StateName, StateCode, SafetyRating, CovidCases, CovidDeaths, NumCounties " +
+//                    "FROM Profile " +
+//                    "INNER JOIN StateProfile USING (ProfileId)" +
+//                    "WHERE StateName = ?;";
+//    Connection connection = null;
+//    PreparedStatement selectStmt = null;
+//    ResultSet result = null;
+//
+//    try {
+//      connection = connectionManager.getConnection();
+//      selectStmt = connection.prepareStatement(selectStateByName);
+//      selectStmt.setString(1, statename);
+//      result = selectStmt.executeQuery();
+//
+//      if (result.next()) {
+//        Integer profileId = result.getInt("ProfileId");
+//        Date date = new Date(result.getTimestamp("Date").getTime());
+//        Integer covidCases = result.getInt("CovidCases");
+//        Integer covidDeaths = result.getInt("covidDeaths");
+//        Integer stateFIPS = result.getInt("StateFIPS");
+//        String stateName = result.getString("StateName");
+//        String stateCode = result.getString("StateCode");
+//        Integer numCounties = result.getInt("NumCounties");
+//        Double safetyRating = result.getDouble("SafetyRating");
+//
+//        StateProfile stateProfile = new StateProfile(profileId, date, covidCases, covidDeaths,
+//                stateFIPS, stateName, stateCode, numCounties, safetyRating);
+//        return stateProfile;
+//      }
+//    } catch (SQLException e) {
+//      e.printStackTrace();
+//      throw e;
+//    } finally {
+//      if (connection != null) {
+//        connection.close();
+//      }
+//      if (selectStmt != null) {
+//        selectStmt.close();
+//      }
+//      if (result != null) {
+//        result.close();
+//      }
+//    }
+//    return null;
+//  }
   /**
    * builds a StateProfile from the ResultSet
    * @param results - ResultSet from MySQL

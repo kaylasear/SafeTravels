@@ -7,10 +7,6 @@
     <body>
         <h1><%= "SafeTravels" %></h1>
         <br/>
-<<<<<<< HEAD
-        <a href="Profile.jsp">Profile</a>
-=======
         <a href="StateProfile.jsp">Search States</a>
->>>>>>> master
     </body>
 </html>
