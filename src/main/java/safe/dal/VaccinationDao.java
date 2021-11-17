@@ -55,7 +55,7 @@ public class VaccinationDao {
 			
 				
 				
-		public Vaccination getVaccinationByCountyName(int countyFIPS) throws SQLException {		
+		public Vaccination getVaccinationByCountyNameAndFIPS(int countyFIPS) throws SQLException {		
 				
 				
 			}
