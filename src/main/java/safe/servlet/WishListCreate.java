@@ -1,7 +1,13 @@
 package safe.servlet;
 
+import safe.dal.CountyProfileDao;
+import safe.dal.StateProfileDao;
 import safe.dal.UserDao;
+import safe.dal.WishListDao;
+import safe.model.CountyProfile;
+import safe.model.StateProfile;
 import safe.model.User;
+import safe.model.WishList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +19,14 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/usercreate")
-public class UserCreate extends HttpServlet {
+@WebServlet("/wishlistcreate")
+public class WishListCreate extends HttpServlet {
 
-    protected UserDao userDao;
+    protected WishListDao wishListDao;
 
     @Override
     public void init() throws ServletException {
-        userDao = UserDao.getInstance();
+        wishListDao = WishListDao.getInstance();
     }
 
     /**
@@ -34,11 +40,9 @@ public class UserCreate extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-        //Just render the JSP.
-        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WishListCreate.jsp").forward(req, resp);
     }
 
 
@@ -59,32 +63,29 @@ public class UserCreate extends HttpServlet {
 
         // Retrieve and validate name.
         String userName = req.getParameter("username");
+        String state = req.getParameter("state");
+        //String city = req.getParameter("city");
+        String county = req.getParameter("county");
         if (userName == null || userName.trim().isEmpty()) {
             messages.put("success", "Invalid UserName");
         }
         else {
-
             try {
-                // Create User.
-                String email = req.getParameter("email");
-                String password = req.getParameter("password");
-                String newPassword2 = req.getParameter("password2");
-                System.out.println(newPassword2);
-
-                if (!password.equals(newPassword2)) {
-                    messages.put("success", "Passwords do not match");
-                } else {
-                    User user = new User(userName, email, password);
-                    user = userDao.createUser(user);
-                    messages.put("success", "Successfully created " + userName);
-                }
-
+                StateProfileDao stateProfileDao = StateProfileDao.getInstance();
+                UserDao userDao = UserDao.getInstance();
+                StateProfile stateProfile = stateProfileDao.getStateProfileByName(state);
+                User user = userDao.getUserByUserName(userName);
+                CountyProfileDao countyProfileDao = CountyProfileDao.getInstance();
+                CountyProfile countyProfile = countyProfileDao.getCountyByCountyName(county);
+                WishList wishList = new WishList(user, null, stateProfile, countyProfile);
+                wishList = wishListDao.createWishList(wishList);
+                messages.put("success", "Successfully created wishlist for user" + userName);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
 
-        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WishListCreate.jsp").forward(req, resp);
     }
 }
