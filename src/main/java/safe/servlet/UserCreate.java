@@ -63,14 +63,22 @@ public class UserCreate extends HttpServlet {
             messages.put("success", "Invalid UserName");
         }
         else {
-            // Create User.
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
 
             try {
-                User user = new User(userName, email, password);
-                user = userDao.createUser(user);
-                messages.put("success", "Successfully created " + userName);
+                // Create User.
+                String email = req.getParameter("email");
+                String password = req.getParameter("password");
+                String newPassword2 = req.getParameter("password2");
+                System.out.println(newPassword2);
+
+                if (!password.equals(newPassword2)) {
+                    messages.put("success", "Passwords do not match");
+                } else {
+                    User user = new User(userName, email, password);
+                    user = userDao.createUser(user);
+                    messages.put("success", "Successfully created " + userName);
+                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
