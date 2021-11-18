@@ -1,4 +1,4 @@
-<%--Webpage to delete an account--%>
+<%--Policy webpage - displays relevant policy information for a certain county base on county FIPS--%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,19 +7,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-<%----- Bootstrap CSS ----%>
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous">
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <%----- Bootstrap CSS ----%>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Delete an Account</title>
-    <%----- Navigation Bar ----%>
+    <title>Policy</title>
+
+<%-- Navigation Bar--%>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
@@ -54,20 +55,33 @@
 </head>
 <body>
 <h1>${messages.title}</h1>
-<form action="userdelete" method="post">
-    <p>
-    <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-        <label for="username">UserName</label>
-        <input id="username" name="username" value="${fn:escapeXml(param.username)}">
-    </div>
-    </p>
-    <p>
-			<span id="submitButton" <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-			<input type="submit">
-			</span>
-    </p>
-</form>
-<br/><br/>
+<table border="1">
+    <tr>
+        <th>Policy Id</th>
+        <th>State Code</th>
+        <th>Active</th>
+        <th>Content</th>
+        <th>Policy Date</th>
+        <th>Resource</th>
+    </tr>
+<%--    For each policy, display the id, state, active status, content, date and a hyperlink to resource--%>
+    <c:forEach items="${policyList}" var="policyList" >
+        <tr>
+            <td><c:out value="${policyList.getPolicyId()}" /></td>
+            <td><c:out value="${policyList.getStateCode()}" /></td>
+            <td><c:out value="${policyList.getActive()}" /></td>
+            <td><c:out value="${policyList.getContent()}" /></td>
+            <td><c:out value="${policyList.getPolicyDate()}" /></td>
+            <td>
+                <a href="<c:out value="${policyList.getResource()}" />"> Source Link</a>
+            </td>
+
+        </tr>
+    </c:forEach>
+</table>
+</body>
+</html>
+
 
 </body>
 </html>

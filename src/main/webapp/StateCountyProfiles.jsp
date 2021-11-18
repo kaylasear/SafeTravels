@@ -80,7 +80,11 @@
             <td><c:out value="${countyProfiles.getStateProfileId()}" /></td>
             <td><c:out value="${countyProfiles.getNationalProfileId()}" /></td>
             <td><c:out value="${countyProfiles.getVaccinationId()}" /></td>
-            <td><c:out value="${countyProfiles.getPolicyId()}" /></td>
+            <td>
+                <a href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                Data
+                </a>
+            </td>
 
 
         </tr>
