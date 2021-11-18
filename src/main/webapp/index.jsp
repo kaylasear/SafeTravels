@@ -55,6 +55,8 @@
     <a href="StateProfile.jsp">Search States</a>
     <a href="FindLocations.jsp">Search Location</a>
     <a href="USTravel.jsp">Search US Travel</a>
+    <a href="Policy.jsp">Search Policy</a>
+
 
   </div>
 </div>
