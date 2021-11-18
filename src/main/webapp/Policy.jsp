@@ -1,9 +1,12 @@
+<%--Policy webpage - displays relevant policy information for a certain county base on county FIPS--%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,10 +16,11 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Safe Travels: State Travel Statistics</title>
 
-    <%----- Navigation Bar ----%>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Policy</title>
+
+<%-- Navigation Bar--%>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
@@ -48,41 +52,36 @@
             </ul>
         </div>
     </nav>
-
 </head>
 <body>
-<form action="ustravel" method="get">
-    <h1>Travel Statistics for State: Enter state name</h1>
-    <p>
-        <label for="statename">Search for a State</label>
-        <input id="statename" name="statename" value="${fn:escapeXml(param.statename)}">
-    </p>
-    <p>
-        <input type="submit">
-        <br/><br/><br/>
-        <span id="successMessage"><b>${messages.success}</b></span>
-    </p>
-</form>
-<br/>
-<h1>State Travel Data</h1>
+<h1>${messages.title}</h1>
 <table border="1">
     <tr>
-        <th>State Name</th>
-        <th>State FIPS</th>
-        <th>Profile ID</th>
-        <th>Population Staying at Home</th>
-        <th>Population Not Staying at home</th>
-        <th>Percent of population taking trips</th>
+        <th>Policy Id</th>
+        <th>State Code</th>
+        <th>Active</th>
+        <th>Content</th>
+        <th>Policy Date</th>
+        <th>Resource</th>
     </tr>
+<%--    For each policy, display the id, state, active status, content, date and a hyperlink to resource--%>
+    <c:forEach items="${policyList}" var="policyList" >
         <tr>
-            <td><c:out value="${usTravelState.getStateName()}" /></td>
-            <td><c:out value="${usTravelState.getStateFIPS()}" /></td>
-            <td><c:out value="${usTravelState.getStateProfileID()}" /></td>
-            <td><c:out value="${usTravelState.getPopStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPopNotStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPercentTakingTrips()}" /></td>
+            <td><c:out value="${policyList.getPolicyId()}" /></td>
+            <td><c:out value="${policyList.getStateCode()}" /></td>
+            <td><c:out value="${policyList.getActive()}" /></td>
+            <td><c:out value="${policyList.getContent()}" /></td>
+            <td><c:out value="${policyList.getPolicyDate()}" /></td>
+            <td>
+                <a href="<c:out value="${policyList.getResource()}" />"> Source Link</a>
+            </td>
+
         </tr>
+    </c:forEach>
 </table>
 </body>
 </html>
 
+
+</body>
+</html>
