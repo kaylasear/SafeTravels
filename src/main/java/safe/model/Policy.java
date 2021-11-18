@@ -1,65 +1,120 @@
 package safe.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 //import java.text.*;
 //import java.text.spi.*;
 
-// Has-a Relationship (no inheritance, no 'extends')
+/**
+ * This class represents a Policy object.
+ */
 public class Policy {
-	
-	// Do we need Integer profileId from Profile class?
-	protected Integer policyId;
-	protected CountyProfile stateCode;
-	protected CountyProfile stateName;
-	protected Integer fipsCode;
+
+	protected int policyId;
+	protected String stateCode;
+	protected String county;
+	protected int fipsCode;
 	protected String startStop;
-	protected String totalPhases;
-	protected LocalDateTime content;
+	protected int totalPhases;
+	protected String content;
 	protected Date policyDate;
-	
-	public Policy(Integer policyId, CountyProfile countyName, , String stateCode, String stateName, Integer fipsCode,
-			String startStop, String totalPhases, LocalDateTime content, Date policyDate) {
-		// no super()
+	protected String resource;
+
+	/**
+	 * Constructs a Policy object with the following parameters.
+	 * @param policyId - id for Policy
+	 * @param stateCode - where the Policy is taken place at the given state
+	 * @param county - where the Policy is taken place at the given county
+	 * @param fipsCode - FIPS code of either state/county
+	 * @param startStop - start/stop phase of policy
+	 * @param totalPhases - total phases that the policy has
+	 * @param content - policy information
+	 * @param policyDate - date of when the Policy is effective
+	 * @param resource - source
+	 */
+	public Policy(int policyId, String stateCode, String county, int fipsCode, String startStop, int totalPhases, String content, Date policyDate, String resource) {
+		this.policyId = policyId;
 		this.stateCode = stateCode;
-		this.stateName = stateName;
+		this.county = county;
 		this.fipsCode = fipsCode;
 		this.startStop = startStop;
 		this.totalPhases = totalPhases;
 		this.content = content;
 		this.policyDate = policyDate;
+		this.resource = resource;
 	}
-	
-	// Read-Only Implementation (only getters)
-	
+
+	/** Getters and Setters */
+	public int getPolicyId() {
+		return policyId;
+	}
+
+	public void setPolicyId(int policyId) {
+		this.policyId = policyId;
+	}
+
 	public String getStateCode() {
-		return stateCode;	
+		return stateCode;
 	}
-	
-	public String getStateName() {
-		return stateName;
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
-	
-	public Integer getFipsCode() {
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public int getFipsCode() {
 		return fipsCode;
 	}
-	
-	public String getStartStop(){
+
+	public void setFipsCode(int fipsCode) {
+		this.fipsCode = fipsCode;
+	}
+
+	public String getStartStop() {
 		return startStop;
 	}
-	
-	public String getTotalPhases() {
+
+	public void setStartStop(String startStop) {
+		this.startStop = startStop;
+	}
+
+	public int getTotalPhases() {
 		return totalPhases;
 	}
-	
-	public LocalDateTime getContent() {
+
+	public void setTotalPhases(int totalPhases) {
+		this.totalPhases = totalPhases;
+	}
+
+	public String getContent() {
 		return content;
 	}
-	
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public Date getPolicyDate() {
 		return policyDate;
 	}
-	
+
+	public void setPolicyDate(Date policyDate) {
+		this.policyDate = policyDate;
+	}
+
+	public String getResource() {
+		return resource;
+	}
+
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
 }
 
