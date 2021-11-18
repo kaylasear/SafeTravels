@@ -29,10 +29,9 @@ public class NationalProfileDao extends ProfileDao {
    */
   public NationalProfile getNationById(Integer ProfileId) throws SQLException {
     String selectNationProfile =
-        "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
-            "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
-            "from countyprofile INNER JOIN profile USING (ProfileId) " +
-            "where ProfileId = ?;";
+        "SELECT ProfileId, Name, Date, CovidCases, CovidDeaths " +
+            "FROM countyprofile INNER JOIN profile USING (ProfileId) " +
+            "WHERE ProfileId = ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet result = null;
