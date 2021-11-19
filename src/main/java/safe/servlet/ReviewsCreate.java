@@ -1,6 +1,8 @@
 package safe.servlet;
 
+import safe.dal.ReviewsDao;
 import safe.dal.UserDao;
+import safe.model.Review;
 import safe.model.User;
 
 import javax.servlet.ServletException;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,14 +71,18 @@ public class ReviewsCreate extends HttpServlet {
 
             try {
 
-                Integer reviewId = req.getParameter("reviewId");
-                String userName = req.getParameter("userName");
+                String reviewId = req.getParameter("reviewId");
+                String userName1 = req.getParameter("userName");
                 Timestamp created = new Timestamp(date.getTime());
                 String userReview = req.getParameter("userReview");
-                Double rating = req.getParameter("rating");
-                Integer profileId = req.getParameter("profileId");
-
-                Reviews review = new Reviews(reviewId,userName,created,userReview,rating,profileId);
+                String rating = req.getParameter("rating");
+                String profileId = req.getParameter("profileId");
+                
+                Integer reviewId2 = Integer.parseInt(reviewId);
+                Integer profileId2 = Integer.parseInt(profileId);
+                Double rating2 = Double.parseDouble(rating);
+                
+                Review review = new Review(reviewId2,userName1,created,userReview,rating2,profileId2);
                 review = reviewDao.createReviews(review);
                 messages.put("success", "Successfully created " + userName);
 

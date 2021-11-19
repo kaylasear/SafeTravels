@@ -19,7 +19,7 @@
     <title>Create a Review</title>
 </head>
 <body>
-<h1>Create an Review</h1>
+<h1>Create a Review</h1>
 <form action="reviwscreate" method="post">
     <p>
 
@@ -32,13 +32,13 @@
     <p>
     <div class="input-group mb-3">
         <span for="user-review" class="input-group-text" id="inputGroup-sizing-default">Email</span>
-        <input  id="user-review" name="email" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input  id="user-review" name="user-review" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
     </p>
     <p>
     <div class="input-group mb-3">
         <span for="rating" class="input-group-text" id="inputGroup-sizing-default">Password</span>
-        <input  id="rating" name="password" value="" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input  id="rating" name="rating" value="" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
     </p>
