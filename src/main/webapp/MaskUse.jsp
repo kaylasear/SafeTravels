@@ -18,6 +18,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>MaskUse</title>
 
+    <%--  Navigation Bar--%>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">

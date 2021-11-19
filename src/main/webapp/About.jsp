@@ -1,14 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
     <%----- Bootstrap CSS ----%>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -16,10 +11,11 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
 
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Safe Travels US Profile</title>
-        <%----- Navigation Bar ----%>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <title>Safe Travels</title>
+
+    <%----- Navigation Bar ----%>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="d-flex flex-grow-1">
         <span class="w-100 d-lg-none d-block">
             <!-- hidden spacer to center brand on mobile --></span>
@@ -45,45 +41,31 @@
                         <a href="#" class="nav-link m-2 menu-item">Create a Review</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link m-2 menu-item">Wishlist</a>
+                        <a href="WishListRetrieve.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
                     </li>
                 </ul>
             </div>
         </nav>
+    </div>
 </head>
 <body>
-	<form action="statereview" method="get">
-		<h1>State Data</h1>
-		<p>
-			<label for="name">Search for a State</label>
-			<input id="name" name="name" value="${fn:escapeXml(param.name)}">
-		</p>
-		<p>
-			<input type="submit">
-			<br/><br/><br/>
-			<span id="successMessage"><b>${messages.success}</b></span>
-		</p>
-	</form>
-	<br/>
-	<h1>State Review</h1>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>User Name</th>
-                <th>Created</th>
-                <th>User Review</th>
-                <th>Rating</th>
-            </tr>
-            <c:forEach items="${reviewList}" var="statereview" >
-                <tr>
-                    <td><c:out value="${reviewList.getReviewId()}" /></td>
-                    <td><c:out value="${reviewList.getUserName()}" /></td>
-                    <td><c:out value="${reviewList.getCreated()}" /></td>
-                    <td><c:out value="${reviewList.getUserReview()}" /></td>
-                    <td><c:out value="${reviewList.getRating()}" /></td>
-                    </a></td>
-                </tr>
-            </c:forEach>
-       </table>
+<div class="container-fluid about">
+    <h1>About:</h1>
+    <p>
+        Safe Travels Is a travel advisory website that provides the latest updates for visitors to a specific destination in the US. The advisory is based on Covid-19 safety rating system by city and state, and travel recommendations and tips by other users. During uncertain times like this, many people are stressed from staying home too long, but at the same time, still unsure about travelling due to the unbalanced health precautions across the nation. The target market is for people who want to travel, but are not happy with the false information spreading across the media. We want to provide our users with a one-stop place for reliable information on which location in the US is best for travelling, based on vaccination rate, mask mandate, and other Covid related policies.
+    </p>
+    <h1>Team Bigfoot is Real:</h1>
+    <li>Brittany-Lauren Todd</li>
+    <li>Kayla Sear</li>
+    <li>Joffrey Inocencio</li>
+    <li>Randy Ramli</li>
+    <li>Sruti Keerti Munukutla</li>
+    <li>Steven Fountain</li>
+
+
+</div>
 </body>
 </html>
