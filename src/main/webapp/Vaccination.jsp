@@ -14,7 +14,7 @@
 <form action="vaccination" method="get">
 	<h1>Vaccination Information: Enter vaccinationId</h1>
 	<p>
-		<label for="vaccinationId">Search for vaccination information\\\</label>
+		<label for="vaccinationId">Enter vaccinationId</label>
         <input id="vaccinationId" name="vaccinationId" value="${fn:escapeXml(param.vaccinationId)}">
         
 	  </p>
