@@ -31,13 +31,13 @@
     </p>
     <p>
     <div class="input-group mb-3">
-        <span for="user-review" class="input-group-text" id="inputGroup-sizing-default">Email</span>
+        <span for="user-review" class="input-group-text" id="inputGroup-sizing-default">User Review</span>
         <input  id="user-review" name="user-review" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
     </p>
     <p>
     <div class="input-group mb-3">
-        <span for="rating" class="input-group-text" id="inputGroup-sizing-default">Password</span>
+        <span for="rating" class="input-group-text" id="inputGroup-sizing-default">Rating</span>
         <input  id="rating" name="rating" value="" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
