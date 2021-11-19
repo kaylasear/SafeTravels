@@ -5,12 +5,10 @@ import java.math.BigInteger;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
-import java.sql.Statement;
+
 
 public class VaccinationDao {
 	
@@ -35,15 +33,14 @@ public class VaccinationDao {
 	 * Get the Vaccination record by fetching it from your MySQL instance.
 	 * This runs a SELECT statement and returns a single Vaccination instance.
 	 * Note that we use VaccinationDao to retrieve the referenced Vaccination instance.
+	 * Get vaccination data by 'vaccinationId'.
+	 * SELECT all attributes from class 'Vaccination'.	
+	 * FROM class 'Vaccination'
+	 * WHERE 'vaccinationId' is specified.
 	*/
-	
-	// Get vaccination data by 'vaccinationId'.
-	public Vaccination getVaccinationByVacId(Integer vaccinationId) throws SQLException {
+	public Vaccination getVaccinationInformationByVacId(Integer vaccinationId) throws SQLException {
 		
-		String selectVaccinationId =
-			// SELECT all attributes from class 'Vaccination'.	
-			// FROM class 'Vaccination'
-			// WHERE 'vaccinationId' is specified.
+		String selectVaccinationInfoById =
 			"SELECT vaccinationId, countyName, countyFIPS, stateCode, date, vaccinationSeriesCompletePct,vaccinationSeriesCompletePop,completenessPct " +
 			"FROM Vaccination " +
 			"WHERE VaccinationId=?;";
@@ -54,26 +51,26 @@ public class VaccinationDao {
 		
 		try {
 			connection = connectionManager.getConnection();
-			selectStmt = connection.prepareStatement(selectVaccinationId);
+			selectStmt = connection.prepareStatement(selectVaccinationInfoById);
 			selectStmt.setInt(1, vaccinationId);
 			results = selectStmt.executeQuery();
 			
 			// No parent class instances
 			
 			if(results.next()) {
-				int resultVaccinationId = results.getInt("VaccinationId");
+				Integer resultVaccinationId = results.getInt("VaccinationId");
 				String resultCountyName = results.getString("CountyName");
-				int resultCountyFIPS = results.getInt("CountyFIPS");
+				Integer resultCountyFIPS = results.getInt("CountyFIPS");
 				String resultStateCode = results.getString("StateCode");
 				Date resultDate =  new Date(results.getTimestamp("Date").getTime());
 				Double resultVaccinationSeriesCompletePct = results.getDouble("VaccinationSeriesCompletePct");
 				BigInteger resultVaccinationSeriesCompletePop = BigInteger.valueOf(results.getInt("VaccinationSeriesCompletePop"));
 				Double completenessPct = results.getDouble("CompletenessPct");
 
-				Vaccination vaccination = new Vaccination(resultVaccinationId, resultCountyName, resultCountyFIPS,
+				Vaccination vaccinationById = new Vaccination(resultVaccinationId, resultCountyName, resultCountyFIPS,
 						resultStateCode, resultDate, resultVaccinationSeriesCompletePct, resultVaccinationSeriesCompletePop,
 					completenessPct);
-				return vaccination;
+				return vaccinationById;
 			}
 			
 	
@@ -92,7 +89,6 @@ public class VaccinationDao {
 				}
 			}
 			return null ;
-		}
-		
+		}		
 }
 
