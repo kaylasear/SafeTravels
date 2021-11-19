@@ -132,7 +132,7 @@ public class ProfileDao {
 	 * @return a new Profile instance
 	 * @throws SQLException
 	 */
-	private Profile buildProfile(ResultSet results) throws SQLException {
+	protected Profile buildProfile(ResultSet results) throws SQLException {
 		Integer profileId = results.getInt("ProfileId");
 		Date date = new Date(results.getTimestamp("Date").getTime());
 		Integer covidCases = results.getInt("CovidCases");

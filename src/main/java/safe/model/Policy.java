@@ -14,7 +14,7 @@ public class Policy {
 	protected String stateCode;
 	protected String county;
 	protected int fipsCode;
-	protected String startStop;
+	protected String active;
 	protected int totalPhases;
 	protected String content;
 	protected Date policyDate;
@@ -26,18 +26,18 @@ public class Policy {
 	 * @param stateCode - where the Policy is taken place at the given state
 	 * @param county - where the Policy is taken place at the given county
 	 * @param fipsCode - FIPS code of either state/county
-	 * @param startStop - start/stop phase of policy
+	 * @param active - start/stop phase of policy
 	 * @param totalPhases - total phases that the policy has
 	 * @param content - policy information
 	 * @param policyDate - date of when the Policy is effective
 	 * @param resource - source
 	 */
-	public Policy(int policyId, String stateCode, String county, int fipsCode, String startStop, int totalPhases, String content, Date policyDate, String resource) {
+	public Policy(int policyId, String stateCode, String county, int fipsCode, String active, int totalPhases, String content, Date policyDate, String resource) {
 		this.policyId = policyId;
 		this.stateCode = stateCode;
 		this.county = county;
 		this.fipsCode = fipsCode;
-		this.startStop = startStop;
+		this.active = active;
 		this.totalPhases = totalPhases;
 		this.content = content;
 		this.policyDate = policyDate;
@@ -77,12 +77,12 @@ public class Policy {
 		this.fipsCode = fipsCode;
 	}
 
-	public String getStartStop() {
-		return startStop;
+	public String getActive() {
+		return active;
 	}
 
-	public void setStartStop(String startStop) {
-		this.startStop = startStop;
+	public void setActive(String active) {
+		this.active = active;
 	}
 
 	public int getTotalPhases() {
