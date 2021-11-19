@@ -29,7 +29,7 @@ public class CityInformationDao {
         "        from countyprofile join (\n" +
         "            select ID as CityId, CityName, StateCode, StateName, CountyName, CountyFIPS\n" +
         "            from cityinformation\n" +
-        "            where CityName like ? or CountyName like ? or StateCode like ? or StateName like ? \n" +
+        "            where CityName like ? or CountyName   like ? or StateCode like ? or StateName like ? \n" +
         "        ) as locTable\n" +
         "        on locTable.CountyFIPS = countyprofile.CountyFIPS;";
     Connection connection = null;

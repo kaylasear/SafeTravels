@@ -42,7 +42,7 @@
           <a href="#" class="nav-link m-2 menu-item">Create a Review</a>
         </li>
         <li class="nav-item">
-          <a href="WishListRetrieve.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+          <a href="WishListDelete.jsp" class="nav-link m-2 menu-item">Wishlist</a>
         </li>
         <li class="nav-item">
           <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
