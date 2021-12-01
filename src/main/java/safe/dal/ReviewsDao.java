@@ -1,10 +1,6 @@
 package safe.dal;
 
-<<<<<<< HEAD
-=======
 import safe.model.Review;
-
->>>>>>> master
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +8,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-<<<<<<< HEAD
-import safe.model.Review;
-
-=======
->>>>>>> master
 
 /**
  * Data access object (DAO) class to interact with the underlying
@@ -47,11 +37,7 @@ public class ReviewsDao {
             insertStmt.setInt(1, review.getReviewId());
             insertStmt.setString(2, review.getUserName());
             insertStmt.setTimestamp(3, new Timestamp(review.getCreated().getTime()));
-<<<<<<< HEAD
             insertStmt.setString(4, (review).getUserReview());
-=======
-            insertStmt.setString(4, review.getUserReview());
->>>>>>> master
             insertStmt.setDouble(5, review.getRating());
             insertStmt.setInt(6, review.getProfileId());
             insertStmt.executeUpdate();
