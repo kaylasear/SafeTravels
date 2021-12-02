@@ -21,10 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ServCountyProfiles extends HttpServlet {
 
     protected CountyProfileDao countyProfileDao;
+    protected StateProfileDao stateProfileDao;
 
     @Override
     public void init() throws ServletException {
         countyProfileDao = CountyProfileDao.getInstance();
+        stateProfileDao = StateProfileDao.getInstance();
+
     }
 
     @Override
@@ -42,7 +45,8 @@ public class ServCountyProfiles extends HttpServlet {
         try {
             if (profileId != null) {
                 countyProfiles = countyProfileDao.getCountyProfilesByStateProfileId(profileId);
-                messages.put("title", "County Profiles for state " + profileId);
+                StateProfile stateProfile = stateProfileDao.getStateProfileById(profileId);
+                    messages.put("title", "County Profiles for " + stateProfile.getStateName());
             } else {
                 messages.put("title", "Invalid profileId");
             }

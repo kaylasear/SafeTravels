@@ -34,9 +34,9 @@ public class CountyProfileDao extends ProfileDao {
   public List<CountyProfile> getCountyProfilesByStateProfileId(Integer stateProfileId) throws SQLException {
     List<CountyProfile> countyProfiles = new ArrayList<CountyProfile>();
     String selectCountyProfiles =
-      "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
-      "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
-      "from countyprofile\n" +
+      "select ProfileId, Date, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
+      "       StateProfileId, NationalProfileId, VaccinationID, PolicyId, CovidCases, CovidDeaths\n" +
+      "from countyprofile inner join Profile using (ProfileId)\n" +
       "where stateprofileid = ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -75,10 +75,10 @@ public class CountyProfileDao extends ProfileDao {
    */
   public CountyProfile getCountyProfileByProfileId(Integer ProfileId) throws SQLException {
     String selectCountyProfiles =
-            "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
-                    "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
-                    "from countyprofile\n" +
-                    "where ProfileId = ?;";
+        "select ProfileId, Date, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
+            "StateProfileId, NationalProfileId, VaccinationID, PolicyId, CovidCases, CovidDeaths\n" +
+            "from countyprofile inner join Profile using (ProfileId)\n" +
+            "where ProfileId = ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet result = null;
@@ -117,10 +117,10 @@ public class CountyProfileDao extends ProfileDao {
    */
   public CountyProfile getCountyByCountyName(String countyName) throws SQLException {
     String selectCounty =
-            "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
-                    "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
-                    "from countyprofile\n" +
-                    "where CountyName = ?;";
+        "select ProfileId, Date, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
+            "StateProfileId, NationalProfileId, VaccinationID, PolicyId, CovidCases, CovidDeaths\n" +
+            "from countyprofile inner join Profile using (ProfileId)\n" +
+            "where CountyName = ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet result = null;
@@ -159,10 +159,10 @@ public class CountyProfileDao extends ProfileDao {
    */
   public CountyProfile getCountyByCountyFIPS(Integer fips) throws SQLException {
     String selectCounty =
-            "select ProfileId, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
-                    "       StateProfileId, NationalProfileId, VaccinationID, PolicyId\n" +
-                    "from countyprofile\n" +
-                    "where CountyFIPS = ?;";
+        "select ProfileId, Date, CountyName, CountyFIPS, GeoLocation, MaskUseId,\n" +
+            "StateProfileId, NationalProfileId, VaccinationID, PolicyId, CovidCases, CovidDeaths\n" +
+            "from countyprofile inner join Profile using (ProfileId)\n" +
+            "where CountyFIPS = ?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet result = null;
@@ -200,18 +200,21 @@ public class CountyProfileDao extends ProfileDao {
    * @throws SQLException
    */
   private CountyProfile buildCountyProfile(ResultSet results) throws SQLException {
-    Integer ProfileId = results.getInt("ProfileId");
-    String CountyName = results.getString("CountyName");
-    Integer CountyFIPS = results.getInt("CountyFIPS");
-    Integer GeoLocation = results.getInt("GeoLocation");
-    Integer MaskUseId = results.getInt("MaskUseId");
-    Integer StateProfileId = results.getInt("StateProfileId");
-    Integer NationalProfileId = results.getInt("NationalProfileId");
-    Integer VaccinationID = results.getInt("VaccinationID");
-    Integer PolicyId = results.getInt("PolicyId");
+    Integer profileId = results.getInt("ProfileId");
+    Date date = new Date(results.getTimestamp("Date").getTime());
+    Integer covidCases = results.getInt("CovidCases");
+    Integer covidDeaths = results.getInt("CovidDeaths");
+    String countyName = results.getString("CountyName");
+    Integer countyFIPS = results.getInt("CountyFIPS");
+    Integer geoLocation = results.getInt("GeoLocation");
+    Integer maskUseId = results.getInt("MaskUseId");
+    Integer stateProfileId = results.getInt("StateProfileId");
+    Integer nationalProfileId = results.getInt("NationalProfileId");
+    Integer vaccinationID = results.getInt("VaccinationID");
+    Integer policyId = results.getInt("PolicyId");
 
-    CountyProfile countyProfile = new CountyProfile(ProfileId, CountyName, CountyFIPS, MaskUseId, StateProfileId,
-        NationalProfileId, VaccinationID, PolicyId);
+    CountyProfile countyProfile = new CountyProfile(profileId, date, covidCases, covidDeaths, countyName, countyFIPS,
+    maskUseId, stateProfileId, nationalProfileId, vaccinationID, policyId);
     return countyProfile;
   }
 
