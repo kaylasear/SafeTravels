@@ -51,12 +51,6 @@
 
     </div>
   </nav>
-<%--  <div class="container-fluid search-links">--%>
-<%--    <a href="StateProfile.jsp">Search States</a>--%>
-<%--    <a href="FindLocations.jsp">Search Location</a>--%>
-<%--    <a href="USTravel.jsp">Search US Travel</a>--%>
-<%--    <a href="Policy.jsp">Search Policy</a>--%>
-<%--  </div>--%>
 </div>
 <%--End Navigation Bar--%>
 
@@ -64,7 +58,12 @@
   <div class="banner">
     <img src="images/banner.png" class="img-fluid banner" alt="SafeTravelsBanner">
   </div>
-
+  <div class="text-center p-4">
+    <a href="FindLocations.jsp" class="btn btn-primary" role="button">Search Location</a>
+    <a href="StateProfile.jsp" class="btn btn-primary" role="button">Search States</a>
+    <a href="USTravel.jsp" class="btn btn-primary" role="button">Search US Travel</a>
+    <a href="Policy.jsp" class="btn btn-primary" role="button">Search Policy</a>
+  </div>
   <div class="p-4 container">
     <div class="row">
 

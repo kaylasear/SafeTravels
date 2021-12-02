@@ -60,41 +60,43 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-	<form action="stateprofile" method="get">
-		<h1>State Data</h1>
-		<p>
-			<label for="name">Search for a State</label>
-			<input id="name" name="name" value="${fn:escapeXml(param.name)}">
-		</p>
-		<p>
-			<input type="submit">
-			<br/><br/><br/>
-			<span id="successMessage"><b>${messages.success}</b></span>
-		</p>
-	</form>
-	<br/>
-	<h1>State Data</h1>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>State Name</th>
-                <th>Covid Cases</th>
-                <th>Covid Deaths</th>
-                <th>Safety Rating</th>
-                <th>Total Counties</th>
-            </tr>
-            <c:forEach items="${stateProfiles}" var="stateProfile" >
-                <tr>
-                    <td><c:out value="${stateProfile.getProfileId()}" /></td>
-                    <td><c:out value="${stateProfile.getStateName()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidCases()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidDeaths()}" /></td>
-                    <td><c:out value="${stateProfile.getSafetyRating()}" /></td>
-                    <td><a href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
-                            ${stateProfile.getNumCounties()}
-                    </a></td>
-                </tr>
-            </c:forEach>
-       </table>
+<div class="container-fluid">
+    <form action="stateprofile" method="get">
+        <h1>State Profiles</h1>
+        <p>
+            <label for="name">Search for a State </label>
+            <input id="name" name="name" value="${fn:escapeXml(param.name)}">
+        </p>
+        <p>
+            <button type="submit" class="btn btn-outline-primary" name="button">Search</button>
+            <br/><br/>
+        </p>
+    </form>
+    <span id="successMessage"><b>${messages.success}</b></span>
+    <div class="row">
+        <c:forEach items="${stateProfiles}" var="stateProfile" >
+            <div class="col">
+                <div class="m-4 card" style="width: 18rem;">
+                        <%--            <img src="..." class="card-img-top" alt="...">--%>
+                    <div class="card-body">
+                        <h5 class="card-title"><c:out value="${stateProfile.getStateName()}" /></h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Safety Rating: <c:out value="${stateProfile.getSafetyRating()}" /></li>
+                        <li class="list-group-item">Total Cases: <c:out value="${stateProfile.getCovidCases()}" /></li>
+                        <li class="list-group-item">Total Deaths: <c:out value="${stateProfile.getCovidDeaths()}" /></li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            View Counties
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+
 </body>
 </html>

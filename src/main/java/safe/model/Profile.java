@@ -1,6 +1,5 @@
 package safe.model;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class Profile {

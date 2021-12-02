@@ -66,17 +66,16 @@
             <input id="location" name="location" value="${fn:escapeXml(param.location)}">
         </p>
         <p>
-            <input type="submit">
+            <button type="submit" class="btn btn-outline-primary" name="button">Search</button>
             <br/><br/><br/>
             <span id="successMessage"><b>${messages.success}</b></span>
         </p>
     </form>
     <br/>
-    <h1>Location Data</h1>
     <div class="row">
         <c:forEach items="${locations}" var="location" >
             <div class="col">
-                <div class="my-4 card" style="width: 18rem;">
+                <div class="m-4 card" style="width: 18rem;">
                         <%--            <img src="..." class="card-img-top" alt="...">--%>
                     <div class="card-body">
                         <h5 class="card-title"><c:out value="${location.getCityName()}" /></h5>
@@ -87,7 +86,7 @@
                         <li class="list-group-item">County: <c:out value="${location.getCountyName()}" /></li>
                     </ul>
                     <div class="card-body">
-                        <a href="countyprofile?stateProfileId=<c:out value="${location.getStateProfileId()}"/>">
+                        <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${location.getStateProfileId()}"/>">
                                 ${location.getStateName()}
                         </a>
                     </div>
@@ -97,6 +96,5 @@
     </div>
 
 </div>
-
 </body>
 </html>

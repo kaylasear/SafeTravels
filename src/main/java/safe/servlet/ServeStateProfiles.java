@@ -46,7 +46,7 @@ public class ServeStateProfiles extends HttpServlet {
         e.printStackTrace();
         throw new IOException(e);
       }
-      messages.put("success", "Displaying results for states");
+      messages.put("success", "Displaying results for " + stateName.toUpperCase());
       // Save the previous search term, so it can be used as the default
       // in the input box when rendering FindUsers.jsp.
       messages.put("previous stateName", stateName);

@@ -60,42 +60,41 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>ProfileId</th>
-        <th>CountyName</th>
-        <th>CountyFIPS</th>
-        <th>MaskUseId</th>
-        <th>StateProfileId</th>
-        <th>NationalProfileId</th>
-        <th>VaccinationID</th>
-        <th>PolicyId</th>
+<div class="container-fluid">
+    <h1>${messages.title}</h1>
+    <div class="row">
+        <c:forEach items="${countyProfiles}" var="countyProfiles" >
+            <div class="m-4 card" style="width: 18rem;">
+                    <%--            <img src="..." class="card-img-top" alt="...">--%>
+                <div class="card-body">
+                    <h5 class="card-title"><c:out value="${countyProfiles.getCountyName()}" /></h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Total Cases: <c:out value="${countyProfiles.getCovidCases()}" /></li>
+                    <li class="list-group-item">Total Deaths: <c:out value="${countyProfiles.getCovidDeaths()}" /></li>
+                </ul>
+                <div class="card-body">
+                    <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                        Covid Policy
+                    </a>
+                    <br>
+                    <a class="text-decoration-none" href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
+                        Mask Use
+                    </a>
+                    <br>
+                    <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                        Data
+                    </a>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 
 
-    </tr>
-    <c:forEach items="${countyProfiles}" var="countyProfiles" >
-        <tr>
-            <td><c:out value="${countyProfiles.getProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getCountyName()}" /></td>
-            <td><c:out value="${countyProfiles.getCountyFIPS()}" /></td>
-            <td>
-                <a href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
-                    Data
-                </a>
-            </td>
-            <td><c:out value="${countyProfiles.getStateProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getNationalProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getVaccinationId()}" /></td>
-            <td>
-                <a href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
-                Data
-                </a>
-            </td>
+</div>
 
 
-        </tr>
-    </c:forEach>
-</table>
+
 </body>
 </html>
