@@ -1,5 +1,4 @@
 package safe.servlet;
-
 import safe.dal.*;
 import safe.model.*;
 
@@ -21,10 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ServMaskUse extends HttpServlet {
 
   protected MaskUseDao maskUseDao;
+  protected CountyProfileDao countyProfileDao;
 
   @Override
   public void init() throws ServletException {
     maskUseDao = MaskUseDao.getInstance();
+    countyProfileDao = CountyProfileDao.getInstance();
   }
 
   @Override
@@ -34,17 +35,19 @@ public class ServMaskUse extends HttpServlet {
     Map<String, String> messages = new HashMap<>();
     req.setAttribute("messages", messages);
 
-    // Defines paramaters in URL bar ie /maskuse?MaskUseId=5
-    Integer maskUseId = Integer.valueOf(req.getParameter("MaskUseId"));
+    // Defines parameters in URL bar ie /maskuse?MaskUseId=5
+    Integer fips = Integer.valueOf(req.getParameter("fips"));
 
     List<MaskUse> maskUse = new ArrayList<>();
 
     try {
-      if (maskUseId != null) {
-        maskUse = maskUseDao.getMaskUseByMaskUseId(maskUseId);
-        messages.put("title", "MaskUse for MaskUseId " + maskUseId);
+      if (fips != null) {
+        maskUse = maskUseDao.getMaskUseByMaskUseId(fips);
+        CountyProfile countyProfile = countyProfileDao.getCountyByCountyFIPS(fips);
+        messages.put("title", "Mask usage for " + countyProfile.getCountyName());
+        messages.put("countyName", countyProfile.getCountyName());
       } else {
-        messages.put("title", "Invalid maskUseId");
+        messages.put("title", "Invalid fips");
       }
     } catch (SQLException e) {
       e.printStackTrace();
