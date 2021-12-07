@@ -62,7 +62,6 @@
     <a href="FindLocations.jsp" class="btn btn-primary" role="button">Search Location</a>
     <a href="StateProfile.jsp" class="btn btn-primary" role="button">Search States</a>
     <a href="USTravel.jsp" class="btn btn-primary" role="button">Search US Travel</a>
-    <a href="Policy.jsp" class="btn btn-primary" role="button">Search Policy</a>
   </div>
   <div class="p-4 container">
     <div class="row">

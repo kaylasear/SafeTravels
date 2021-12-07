@@ -58,37 +58,24 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>WishId</th>
-        <th>Username</th>
-<%--        <th>CityProfile Id</th>--%>
-        <th>State name</th>
-        <th>County Name</th>
-    </tr>
-    <c:forEach items="${wishListByUser}" var="userData" >
-        <tr>
-            <td><c:out value="${userData.getWishListID()}" /></td>
-            <td><c:out value="${userData.getUser().getUserName()}" /></td>
-<%--            <td><c:out value="${wishListByUser.get()}" /></td>--%>
-            <td><c:out value="${userData.getStateProfile().getStateName()}" /></td>
-            <td><c:out value="${userData.getCountyProfile().getCountyName()}" /></td>
-        </tr>
-    </c:forEach>
-</table>
-<form action="wishlistdelete" method="post">
-    <p>
-    <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-        <label for="username">${userData[0].getUser().getUserName()}</label>
-        <input id="username" name="username" value="${fn:escapeXml(param.username)}" readonly>
+<div class="container-fluid">
+    <h1>${messages.title}</h1>
+    <div class="row">
+        <c:forEach items="${reviewList}" var="reviews" >
+            <div class="m-4 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Review: <c:out value="${reviews.getReviewId()}" /></h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">UserName: <c:out value="${reviews.getUserName()}" /></li>
+                    <li class="list-group-item">User Review: <c:out value="${reviews.getUserReview()}" /></li>
+                    <li class="list-group-item">Rating: <c:out value="${reviews.getRating()}" /></li>
+                </ul>
+            </div>
+        </c:forEach>
     </div>
-    </p>
-    <p>
-        <span id="submitButton" <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-            <input type="submit">
-			</span>
-    </p>
-</form>
+
+</div>
+
 </body>
 </html>

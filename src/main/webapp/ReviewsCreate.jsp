@@ -5,12 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-<%----- Bootstrap CSS ----%>
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -71,15 +65,26 @@
     <p>
 
     <div class="input-group mb-3">
-        <span for="username" class="input-group-text" id="inputGroup-sizing-default">UserName</span>
+        <span for="username" class="input-group-text" id="inputGroup-sizing-default">Username</span>
         <input  id="username" name="username" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
     </p>
     <p>
-    <div class="input-group mb-3">
-        <span for="user-review" class="input-group-text" id="inputGroup-sizing-default">User Review</span>
-        <input  id="user-review" name="user-review" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    <div class="form-floating">
+        <select class="form-select" name="stateToReview" id="floatingSelect" aria-label="Floating label select example">
+            <c:forEach items="${stateProfileList}" var="state">
+            <option><c:out value="${state.getStateName()}"/></option>
+            </c:forEach>
+        </select>
+        <label for="floatingSelect">Choose a State</label>
+    </div>
+
+    </p>
+    <p>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a review here" name="review" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Write Your Review</label>
     </div>
     </p>
     <p>

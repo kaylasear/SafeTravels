@@ -90,6 +90,11 @@
                             View Counties
                         </a>
                     </div>
+                    <div class="card-body">
+                        <a class="text-decoration-none" href="statereview?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            View Reviews
+                        </a>
+                    </div>
                 </div>
             </div>
         </c:forEach>
