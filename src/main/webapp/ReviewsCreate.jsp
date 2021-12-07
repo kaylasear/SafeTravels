@@ -61,19 +61,7 @@
 <%--End Navigation Bar--%>
 <body>
 <h1>Create a Review</h1>
-<form action="reviewscreate" method="get">
-    <p>
-    <div class="form-floating">
-        <select class="form-select" name="stateToReview" id="floatingSelect" aria-label="Floating label select example">
-            <c:forEach items="${stateProfileList}" var="state">
-                <option><c:out value="${state.getStateName()}"/></option>
-            </c:forEach>
-        </select>
-        <label for="floatingSelect">Choose a State</label>
-    </div>
 
-    </p>
-</form>
 <form action="reviewscreate" method="post">
     <p>
 
@@ -81,6 +69,16 @@
         <span for="username" class="input-group-text" id="inputGroup-sizing-default">Username</span>
         <input  id="username" name="username" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
+
+    <p>
+        <select name="stateToReview" class="form-select" aria-label="Default select example">
+            <option selected>Choose a State</option>
+            <c:forEach items="${stateProfileList}" var="state">--%>
+                <option><c:out value="${state.getStateName()}"/></option>
+            </c:forEach>
+        </select>
+
+    </p>
 
     </p>
     <p>
@@ -100,6 +98,16 @@
         <button type="submit" class="btn btn-outline-primary" name="button">Submit</button>
     </p>
 </form>
+<p>
+    <h4> Rating Key:</h4>
+<p>
+    Level 1: Safest state<br>
+    Level 2: Exercise Normal Precautions<br>
+    Level 3: Exercise Increased Caution<br>
+    Level 4: Reconsider Travel<br>
+    Level 5: Do not travel
+</p>
+</p>
 <br/><br/>
 <p>
     <span id="successMessage"><b>${messages.success}</b></span>
