@@ -24,11 +24,11 @@ public class MaskUseDao {
     return instance;
   }
 
-  public List<MaskUse> getMaskUseByMaskUseId(Integer maskUseId) throws SQLException {
+  public List<MaskUse> getMaskUseByMaskUseId(Integer fips) throws SQLException {
     String selectMaskUseByCountyFIPS =
       "SELECT MaskUseID, CountyFIPS, NEVER, RARELY, SOMETIMES, FREQUENTLY, ALWAYS\n" +
         "FROM maskuse\n" +
-        "WHERE MaskUseID = ?\n";
+        "WHERE CountyFIPS = ?\n";
     Connection connection = null;
     PreparedStatement selectStmt = null;
     ResultSet results = null;
@@ -37,7 +37,7 @@ public class MaskUseDao {
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectMaskUseByCountyFIPS);
-      selectStmt.setInt(1, maskUseId);
+      selectStmt.setInt(1, fips);
       results = selectStmt.executeQuery();
 
       if (results.next()) {

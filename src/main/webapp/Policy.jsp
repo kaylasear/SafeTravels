@@ -62,34 +62,28 @@
     <%--End Navigation Bar--%>
 
 <body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>Policy Id</th>
-        <th>State Code</th>
-        <th>Active</th>
-        <th>Content</th>
-        <th>Policy Date</th>
-        <th>Resource</th>
-    </tr>
-<%--    For each policy, display the id, state, active status, content, date and a hyperlink to resource--%>
+<div class="row">
     <c:forEach items="${policyList}" var="policyList" >
-        <tr>
-            <td><c:out value="${policyList.getPolicyId()}" /></td>
-            <td><c:out value="${policyList.getStateCode()}" /></td>
-            <td><c:out value="${policyList.getActive()}" /></td>
-            <td><c:out value="${policyList.getContent()}" /></td>
-            <td><c:out value="${policyList.getPolicyDate()}" /></td>
-            <td>
-                <a href="<c:out value="${policyList.getResource()}" />"> Source Link</a>
-            </td>
-
-        </tr>
+        <div class="col">
+            <div class="m-4 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h4 class="card-title"><c:out value="${policyList.getCounty()} County" /></h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">State: <c:out value="${policyList.getStateCode()}" /></li>
+                    <li class="list-group-item">Status: <c:out value="${policyList.getActive()}" /></li>
+                    <li class="list-group-item">Policy Date: <c:out value="${policyList.getPolicyDate()}" /></li>
+                    <li class="list-group-item">Policy: <c:out value="${policyList.getContent()}" /></li>
+                </ul>
+                <div class="card-body">
+                    <a class="text-decoration-none" target="_blank" href="<c:out value="${policyList.getResource()}"/>">
+                        More Information
+                    </a>
+                    <br>
+                </div>
+            </div>
+        </div>
     </c:forEach>
-</table>
-</body>
-</html>
-
-
+</div>
 </body>
 </html>

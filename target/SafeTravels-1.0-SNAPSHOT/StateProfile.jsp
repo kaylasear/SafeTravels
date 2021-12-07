@@ -9,6 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
     <%----- Bootstrap CSS ----%>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -17,76 +18,83 @@
           crossorigin="anonymous">
 
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Safe Travels US Profile</title>
-        <%----- Navigation Bar ----%>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="d-flex flex-grow-1">
-        <span class="w-100 d-lg-none d-block">
-            <!-- hidden spacer to center brand on mobile --></span>
-                <a class="navbar-brand d-none d-lg-inline-block" href="index.jsp"> Safe Travels </a>
-                <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
-                    <img src="//placehold.it/40?text=LOGO" alt="logo">
-                </a>
-                <div class="w-100 text-right">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+    <title>State Profiles</title>
+</head>
+<%----- Navigation Bar ----%>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="d-flex flex-grow-1">
+          <span class="w-100 d-lg-none d-block">
+              <!-- hidden spacer to center brand on mobile --></span>
+            <a class="navbar-brand d-none d-lg-inline-block" href="index.jsp"> Home </a>
+            <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                <img src="//placehold.it/40?text=LOGO" alt="logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+            <ul class="navbar-nav ms-auto flex-nowrap">
+                <li class="nav-item">
+                    <a href="FindLocations.jsp" class="nav-link m-2 menu-item nav-active">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                </li>
+                <li class="nav-item">
+                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+                </li>
+                <li class="nav-item">
+                    <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+<%--End Navigation Bar--%>
+<body>
+<div class="container-fluid">
+    <form action="stateprofile" method="get">
+        <h1>State Profiles</h1>
+        <p>
+            <label for="name">Search for a State </label>
+            <input id="name" name="name" value="${fn:escapeXml(param.name)}">
+        </p>
+        <p>
+            <button type="submit" class="btn btn-outline-primary" name="button">Search</button>
+            <br/><br/>
+        </p>
+    </form>
+    <span id="successMessage"><b>${messages.success}</b></span>
+    <div class="row">
+        <c:forEach items="${stateProfiles}" var="stateProfile" >
+            <div class="col">
+                <div class="m-4 card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title"><c:out value="${stateProfile.getStateName()}" /></h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Safety Rating: <c:out value="${stateProfile.getSafetyRating()}" /></li>
+                        <li class="list-group-item">Total Cases: <c:out value="${stateProfile.getCovidCases()}" /></li>
+                        <li class="list-group-item">Total Deaths: <c:out value="${stateProfile.getCovidDeaths()}" /></li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            View Counties
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-                <ul class="navbar-nav ms-auto flex-nowrap">
-                    <li class="nav-item">
-                        <a href="index.jsp" class="nav-link m-2 menu-item nav-active">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link m-2 menu-item">Create a Review</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link m-2 menu-item">Wishlist</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-</head>
-<body>
-	<form action="stateprofile" method="get">
-		<h1>State Data</h1>
-		<p>
-			<label for="name">Search for a State</label>
-			<input id="name" name="name" value="${fn:escapeXml(param.name)}">
-		</p>
-		<p>
-			<input type="submit">
-			<br/><br/><br/>
-			<span id="successMessage"><b>${messages.success}</b></span>
-		</p>
-	</form>
-	<br/>
-	<h1>State Data</h1>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>State Name</th>
-                <th>Covid Cases</th>
-                <th>Covid Deaths</th>
-                <th>Safety Rating</th>
-                <th>Total Counties</th>
-            </tr>
-            <c:forEach items="${stateProfiles}" var="stateProfile" >
-                <tr>
-                    <td><c:out value="${stateProfile.getProfileId()}" /></td>
-                    <td><c:out value="${stateProfile.getStateName()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidCases()}" /></td>
-                    <td><c:out value="${stateProfile.getCovidDeaths()}" /></td>
-                    <td><c:out value="${stateProfile.getSafetyRating()}" /></td>
-                    <td><a href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
-                            ${stateProfile.getNumCounties()}
-                    </a></td>
-                </tr>
-            </c:forEach>
-       </table>
+        </c:forEach>
+    </div>
+</div>
+
 </body>
 </html>

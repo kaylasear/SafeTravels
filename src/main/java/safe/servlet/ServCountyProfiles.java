@@ -37,16 +37,15 @@ public class ServCountyProfiles extends HttpServlet {
         Map<String, String> messages = new HashMap<>();
         req.setAttribute("messages", messages);
 
-        // Defines paramaters in URL bar ie /countyprofile?stateProfileId=5
+        // Defines parameters in URL bar ie /countyprofile?stateProfileId=5
         Integer profileId = Integer.valueOf(req.getParameter("stateProfileId"));
 
         List<CountyProfile> countyProfiles = new ArrayList<>();
-        System.out.println(profileId);
         try {
             if (profileId != null) {
                 countyProfiles = countyProfileDao.getCountyProfilesByStateProfileId(profileId);
                 StateProfile stateProfile = stateProfileDao.getStateProfileById(profileId);
-                    messages.put("title", "County Profiles for " + stateProfile.getStateName());
+                messages.put("title", "County Profiles for " + stateProfile.getStateName());
             } else {
                 messages.put("title", "Invalid profileId");
             }

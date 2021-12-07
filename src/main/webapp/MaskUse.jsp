@@ -60,31 +60,23 @@
     <%--End Navigation Bar--%>
 
 <body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>MaskUseId</th>
-        <th>CountyFIPS</th>
-        <th>ALWAYS</th>
-        <th>FREQUENTLY</th>
-        <th>SOMETIMES</th>
-        <th>RARELY</th>
-        <th>NEVER</th>
-    </tr>
-    <c:forEach items="${maskUse}" var="maskUse" >
-        <tr>
-            <td><c:out value="${maskUse.getMaskUseId()}" /></td>
-            <td><c:out value="${maskUse.getCountyFIPS()}" /></td>
-            <td><c:out value="${maskUse.getALWAYS()}" /></td>
-            <td><c:out value="${maskUse.getFREQUENTLY()}" /></td>
-            <td><c:out value="${maskUse.getSOMETIMES()}" /></td>
-            <td><c:out value="${maskUse.getRARELY()}" /></td>
-            <td><c:out value="${maskUse.getNEVER()}" /></td>
-
-<%--            <td><a href="blogcomments?postid=<c:out value="${blogPost.getPostId()}"/>">BlogComments</a></td>--%>
-<%--            <td><a href="deleteblogpost?postid=<c:out value="${blogPost.getPostId()}"/>">Delete</a></td>--%>
-        </tr>
-    </c:forEach>
-</table>
+    <div class="row">
+        <c:forEach items="${maskUse}" var="maskUse" >
+            <div class="col">
+                <div class="m-4 card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title"><c:out value="${messages.countyName} Mask Usage" /></h4>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Always: <c:out value="${maskUse.getALWAYS()}" /></li>
+                        <li class="list-group-item">Frequently: <c:out value="${maskUse.getFREQUENTLY()}" /></li>
+                        <li class="list-group-item">Sometimes: <c:out value="${maskUse.getSOMETIMES()}" /></li>
+                        <li class="list-group-item">Rarely: <c:out value="${maskUse.getRARELY()}" /></li>
+                        <li class="list-group-item">Never: <c:out value="${maskUse.getNEVER()}" /></li>
+                    </ul>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </body>
 </html>
