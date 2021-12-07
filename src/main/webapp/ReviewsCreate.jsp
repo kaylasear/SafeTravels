@@ -67,7 +67,7 @@
 <%--End Navigation Bar--%>
 <body>
 <h1>Create a Review</h1>
-<form action="reviwscreate" method="post">
+<form action="reviewscreate" method="post">
     <p>
 
     <div class="input-group mb-3">

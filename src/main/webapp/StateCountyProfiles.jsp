@@ -65,26 +65,24 @@
     <div class="row">
         <c:forEach items="${countyProfiles}" var="countyProfiles" >
             <div class="m-4 card" style="width: 18rem;">
-                    <%--            <img src="..." class="card-img-top" alt="...">--%>
                 <div class="card-body">
-                    <h5 class="card-title"><c:out value="${countyProfiles.getCountyName()}" /></h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h4 class="card-title"><c:out value="${countyProfiles.getCountyName()}" /></h4>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Total Cases: <c:out value="${countyProfiles.getCovidCases()}" /></li>
                     <li class="list-group-item">Total Deaths: <c:out value="${countyProfiles.getCovidDeaths()}" /></li>
                 </ul>
                 <div class="card-body">
+                    <a class="text-decoration-none" href="vaccination?vaccinationId=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                        Vaccination Rates
+                    </a>
+                    <br>
                     <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
                         Covid Policy
                     </a>
                     <br>
-                    <a class="text-decoration-none" href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
+                    <a class="text-decoration-none" href="maskuse?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
                         Mask Use
-                    </a>
-                    <br>
-                    <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
-                        Data
                     </a>
                 </div>
             </div>

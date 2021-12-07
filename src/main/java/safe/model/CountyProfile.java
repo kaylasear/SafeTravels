@@ -1,5 +1,4 @@
 package safe.model;
-
 import java.util.Date;
 
 public class CountyProfile extends Profile {

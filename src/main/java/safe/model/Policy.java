@@ -2,8 +2,6 @@ package safe.model;
 
 import java.util.Date;
 
-//import java.text.*;
-//import java.text.spi.*;
 
 /**
  * This class represents a Policy object.
