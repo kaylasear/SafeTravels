@@ -39,44 +39,13 @@ public class ReviewsCreate extends HttpServlet {
         List<StateProfile> stateProfileList = new ArrayList<>();
         try {
             stateProfileList = stateProfileDao.getStateProfiles();
-            req.setAttribute("stateProfileList", stateProfileList);
-
-            req.getRequestDispatcher("/ReviewsCreate.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        req.setAttribute("stateProfileList", stateProfileList);
+        req.getRequestDispatcher("/ReviewsCreate.jsp").forward(req, resp);
     }
-
-//    /**
-//     * The doGet() method is called by the server (via the service method) to allow a servlet to handle a GET request.
-//     * Generally, we use the doGet() method for getting the information from the server.
-//     * @param req
-//     * @param resp
-//     * @throws ServletException
-//     * @throws IOException
-//     */
-//    @Override
-//    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-//            throws ServletException, IOException {
-//        // Map for storing messages.
-//        Map<String, String> messages = new HashMap<String, String>();
-//        req.setAttribute("messages", messages);
-//
-//        List<StateProfile> stateProfileList = new ArrayList<>();
-//
-//        try {
-//
-//            stateProfileList = stateProfileDao.getStateProfiles();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new IOException(e);
-//        }
-//        messages.put("success", "Displaying results for states");
-//        //Just render the JSP.
-//        req.setAttribute("stateProfileList", stateProfileList);
-//        req.getRequestDispatcher("/ReviewsCreate.jsp").forward(req, resp);
-//    }
-
 
     /**
      * The doPost() method is called by the server (via the service method) to allow a servlet to handle a POST request.
@@ -93,7 +62,6 @@ public class ReviewsCreate extends HttpServlet {
         Date date = new Date();
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-        List<StateProfile> stateProfileList = new ArrayList<>();
 
 
         // Retrieve and validate name.
@@ -104,9 +72,6 @@ public class ReviewsCreate extends HttpServlet {
         else {
 
             try {
-                stateProfileList = stateProfileDao.getStateProfiles();
-                req.setAttribute("stateProfileList", stateProfileList);
-
                 String userName1 = req.getParameter("username");
                 Timestamp created = new Timestamp(date.getTime());
                 String userReview = req.getParameter("review");

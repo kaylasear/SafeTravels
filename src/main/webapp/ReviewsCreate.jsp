@@ -61,23 +61,25 @@
 <%--End Navigation Bar--%>
 <body>
 <h1>Create a Review</h1>
+<form action="reviewscreate" method="get">
+    <p>
+    <div class="form-floating">
+        <select class="form-select" name="stateToReview" id="floatingSelect" aria-label="Floating label select example">
+            <c:forEach items="${stateProfileList}" var="state">
+                <option><c:out value="${state.getStateName()}"/></option>
+            </c:forEach>
+        </select>
+        <label for="floatingSelect">Choose a State</label>
+    </div>
+
+    </p>
+</form>
 <form action="reviewscreate" method="post">
     <p>
 
     <div class="input-group mb-3">
         <span for="username" class="input-group-text" id="inputGroup-sizing-default">Username</span>
         <input  id="username" name="username" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-    </div>
-
-    </p>
-    <p>
-    <div class="form-floating">
-        <select class="form-select" name="stateToReview" id="floatingSelect" aria-label="Floating label select example">
-            <c:forEach items="${stateProfileList}" var="state">
-            <option><c:out value="${state.getStateName()}"/></option>
-            </c:forEach>
-        </select>
-        <label for="floatingSelect">Choose a State</label>
     </div>
 
     </p>
