@@ -9,6 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
     <%----- Bootstrap CSS ----%>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -17,78 +18,83 @@
           crossorigin="anonymous">
 
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>StateCountyProfiles</title>
+    <title>State County Profiles</title>
+</head>
+<%----- Navigation Bar ----%>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="d-flex flex-grow-1">
+          <span class="w-100 d-lg-none d-block">
+              <!-- hidden spacer to center brand on mobile --></span>
+            <a class="navbar-brand d-none d-lg-inline-block" href="index.jsp"> Home </a>
+            <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
+                <img src="//placehold.it/40?text=LOGO" alt="logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+            <ul class="navbar-nav ms-auto flex-nowrap">
+                <li class="nav-item">
+                    <a href="FindLocations.jsp" class="nav-link m-2 menu-item nav-active">Search</a>
+                </li>
+                <li class="nav-item">
+                    <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                </li>
+                <li class="nav-item">
+                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+                </li>
+                <li class="nav-item">
+                    <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
+                </li>
+            </ul>
 
-        <%----- Navigation Bar ----%>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="d-flex flex-grow-1">
-        <span class="w-100 d-lg-none d-block">
-            <!-- hidden spacer to center brand on mobile --></span>
-                <a class="navbar-brand d-none d-lg-inline-block" href="index.jsp"> Safe Travels </a>
-                <a class="navbar-brand-two mx-auto d-lg-none d-inline-block" href="#">
-                    <img src="//placehold.it/40?text=LOGO" alt="logo">
-                </a>
-                <div class="w-100 text-right">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        </div>
+    </nav>
+</div>
+<%--End Navigation Bar--%>
+<body>
+<div class="container-fluid">
+    <h1>${messages.title}</h1>
+    <div class="row">
+        <c:forEach items="${countyProfiles}" var="countyProfiles" >
+            <div class="m-4 card" style="width: 18rem;">
+                    <%--            <img src="..." class="card-img-top" alt="...">--%>
+                <div class="card-body">
+                    <h5 class="card-title"><c:out value="${countyProfiles.getCountyName()}" /></h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Total Cases: <c:out value="${countyProfiles.getCovidCases()}" /></li>
+                    <li class="list-group-item">Total Deaths: <c:out value="${countyProfiles.getCovidDeaths()}" /></li>
+                </ul>
+                <div class="card-body">
+                    <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                        Covid Policy
+                    </a>
+                    <br>
+                    <a class="text-decoration-none" href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
+                        Mask Use
+                    </a>
+                    <br>
+                    <a class="text-decoration-none" href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                        Data
+                    </a>
                 </div>
             </div>
-            <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-                <ul class="navbar-nav ms-auto flex-nowrap">
-                    <li class="nav-item">
-                        <a href="index.jsp" class="nav-link m-2 menu-item nav-active">Log In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link m-2 menu-item">Create a Review</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link m-2 menu-item">Wishlist</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-</head>
-<body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>ProfileId</th>
-        <th>CountyName</th>
-        <th>CountyFIPS</th>
-        <th>MaskUseId</th>
-        <th>StateProfileId</th>
-        <th>NationalProfileId</th>
-        <th>VaccinationID</th>
-        <th>PolicyId</th>
+        </c:forEach>
+    </div>
 
 
-    </tr>
-    <c:forEach items="${countyProfiles}" var="countyProfiles" >
-        <tr>
-            <td><c:out value="${countyProfiles.getProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getCountyName()}" /></td>
-            <td><c:out value="${countyProfiles.getCountyFIPS()}" /></td>
-            <td>
-                <a href="maskuse?MaskUseId=<c:out value="${countyProfiles.getMaskUseId()}"/>">
-                    Data
-                </a>
-            </td>
-            <td><c:out value="${countyProfiles.getStateProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getNationalProfileId()}" /></td>
-            <td><c:out value="${countyProfiles.getVaccinationId()}" /></td>
-            <td>
-                <a href="policy?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
-                Data
-                </a>
-            </td>
+</div>
 
 
-        </tr>
-    </c:forEach>
-</table>
+
 </body>
 </html>

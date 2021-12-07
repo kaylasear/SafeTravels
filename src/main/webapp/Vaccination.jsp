@@ -1,12 +1,9 @@
-<%--Webpage to update a user's email--%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +16,7 @@
           crossorigin="anonymous">
 
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Update User</title>
+    <title>Vaccination</title>
 </head>
 <%----- Navigation Bar ----%>
 <div class="container-fluid">
@@ -48,14 +45,8 @@
                 <li class="nav-item">
                     <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Wishlist
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item " href="WishListCreate.jsp">Create Wishlist</a>
-                        <a class="dropdown-item" href="WishListDelete.jsp">Delete Wishlist</a>
-                    </div>
+                <li class="nav-item">
+                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
                 </li>
                 <li class="nav-item">
                     <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
@@ -67,27 +58,43 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-<h1>Update Your Email</h1>
-<form action="userupdate" method="post">
+<form action="vaccination" method="get">
+	<h1>Vaccination Information: Enter vaccinationId</h1>
+	<p>
+		<label for="vaccinationId">Enter vaccinationId</label>
+        <input id="vaccinationId" name="vaccinationId" value="${fn:escapeXml(param.vaccinationId)}">
+        
+	  </p>
     <p>
-        <label for="username">UserName</label>
-        <input id="username" name="username" value="${fn:escapeXml(param.username)}">
-    </p>
-    <p>
-        <label for="email">New Email</label>
-        <input id="email" name="email" value="">
-    </p>
-    <p>
-        <input type="submit">
+    
+    
+    <input type="submit">
+        <br/><br/><br/>
+        <span id="successMessage"><b>${messages.success}</b></span>
     </p>
 </form>
-<br/><br/>
-<p>
-    <span id="successMessage"><b>${messages.success}</b></span>
-</p>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<br/>
+<h1>Vaccination Information</h1>
+<table border="1">
 
+    <tr>
+		<th>State Name</th>
+        <th>State FIPS</th>
+        <th>Profile ID</th>
+        <th>Population Staying at Home</th>
+        <th>Population Not Staying at home</th>
+        <th>Percent of population taking trips</th>
+    </tr>
+    
+   		<tr>
+            <td><c:out value="${usTravelState.getStateName()}" /></td>
+            <td><c:out value="${usTravelState.getStateFIPS()}" /></td>
+            <td><c:out value="${usTravelState.getStateProfileID()}" /></td>
+            <td><c:out value="${usTravelState.getPopStayingAtHome()}" /></td>
+            <td><c:out value="${usTravelState.getPopNotStayingAtHome()}" /></td>
+            <td><c:out value="${usTravelState.getPercentTakingTrips()}" /></td>
+        </tr>
+
+</table>
 </body>
 </html>

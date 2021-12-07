@@ -1,12 +1,9 @@
-<%--Webpage to update a user's email--%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +16,7 @@
           crossorigin="anonymous">
 
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Update User</title>
+    <title>State Review</title>
 </head>
 <%----- Navigation Bar ----%>
 <div class="container-fluid">
@@ -48,14 +45,8 @@
                 <li class="nav-item">
                     <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Wishlist
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item " href="WishListCreate.jsp">Create Wishlist</a>
-                        <a class="dropdown-item" href="WishListDelete.jsp">Delete Wishlist</a>
-                    </div>
+                <li class="nav-item">
+                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
                 </li>
                 <li class="nav-item">
                     <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
@@ -67,27 +58,37 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-<h1>Update Your Email</h1>
-<form action="userupdate" method="post">
+<h1>${messages.title}</h1>
+<table border="1">
+    <tr>
+        <th>WishId</th>
+        <th>Username</th>
+<%--        <th>CityProfile Id</th>--%>
+        <th>State name</th>
+        <th>County Name</th>
+    </tr>
+    <c:forEach items="${wishListByUser}" var="userData" >
+        <tr>
+            <td><c:out value="${userData.getWishListID()}" /></td>
+            <td><c:out value="${userData.getUser().getUserName()}" /></td>
+<%--            <td><c:out value="${wishListByUser.get()}" /></td>--%>
+            <td><c:out value="${userData.getStateProfile().getStateName()}" /></td>
+            <td><c:out value="${userData.getCountyProfile().getCountyName()}" /></td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="wishlistdelete" method="post">
     <p>
-        <label for="username">UserName</label>
-        <input id="username" name="username" value="${fn:escapeXml(param.username)}">
+    <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
+        <label for="username">${userData[0].getUser().getUserName()}</label>
+        <input id="username" name="username" value="${fn:escapeXml(param.username)}" readonly>
+    </div>
     </p>
     <p>
-        <label for="email">New Email</label>
-        <input id="email" name="email" value="">
-    </p>
-    <p>
-        <input type="submit">
+        <span id="submitButton" <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
+            <input type="submit">
+			</span>
     </p>
 </form>
-<br/><br/>
-<p>
-    <span id="successMessage"><b>${messages.success}</b></span>
-</p>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </body>
 </html>
