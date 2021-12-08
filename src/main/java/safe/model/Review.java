@@ -19,6 +19,14 @@ public class Review {
         this.ProfileId = profileId;
     }
 
+    public Review(String userName, Timestamp created, String userReview, Double rating, Integer profileId) {
+        UserName = userName;
+        Created = created;
+        UserReview = userReview;
+        Rating = rating;
+        ProfileId = profileId;
+    }
+
     public Integer getReviewId() {
         return ReviewId;
     }

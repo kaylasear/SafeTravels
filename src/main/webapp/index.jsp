@@ -39,7 +39,7 @@
           <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
         </li>
         <li class="nav-item">
-          <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+          <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,7 +68,6 @@
     <a href="FindLocations.jsp" class="btn btn-primary" role="button">Search Location</a>
     <a href="StateProfile.jsp" class="btn btn-primary" role="button">Search States</a>
     <a href="USTravel.jsp" class="btn btn-primary" role="button">Search US Travel</a>
-    <a href="Policy.jsp" class="btn btn-primary" role="button">Search Policy</a>
   </div>
   <div class="p-4 container">
     <div class="row">

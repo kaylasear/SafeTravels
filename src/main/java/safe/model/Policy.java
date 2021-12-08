@@ -76,7 +76,7 @@ public class Policy {
 	}
 
 	public String getActive() {
-		return active;
+		return this.active;
 	}
 
 	public void setActive(String active) {

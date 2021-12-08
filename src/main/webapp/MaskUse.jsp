@@ -44,7 +44,7 @@
                         <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                        <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -45,7 +45,7 @@
                     <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                    <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,7 +95,10 @@
                         <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
                             View Counties
                         </a>
-                    </div>
+                        <br>
+                        <a class="text-decoration-none" href="statereview?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
+                            View Reviews
+                        </a>
                 </div>
             </div>
         </c:forEach>

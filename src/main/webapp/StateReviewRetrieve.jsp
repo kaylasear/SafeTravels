@@ -43,7 +43,7 @@
                     <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                    <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,38 +64,23 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
-<h1>${messages.title}</h1>
-<table border="1">
-    <tr>
-        <th>WishId</th>
-        <th>Username</th>
-<%--        <th>CityProfile Id</th>--%>
-        <th>State name</th>
-        <th>County Name</th>
-    </tr>
-    <c:forEach items="${wishListByUser}" var="userData" >
-        <tr>
-            <td><c:out value="${userData.getWishListID()}" /></td>
-            <td><c:out value="${userData.getUser().getUserName()}" /></td>
-<%--            <td><c:out value="${wishListByUser.get()}" /></td>--%>
-            <td><c:out value="${userData.getStateProfile().getStateName()}" /></td>
-            <td><c:out value="${userData.getCountyProfile().getCountyName()}" /></td>
-        </tr>
-    </c:forEach>
-</table>
-<form action="wishlistdelete" method="post">
-    <p>
-    <div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-        <label for="username">${userData[0].getUser().getUserName()}</label>
-        <input id="username" name="username" value="${fn:escapeXml(param.username)}" readonly>
+<div class="container-fluid">
+    <h1>${messages.title}</h1>
+    <div class="row">
+        <c:forEach items="${reviewList}" var="reviews" >
+            <div class="m-4 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h4 class="card-title">Review: <c:out value="${reviews.getReviewId()}" /></h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">UserName: <c:out value="${reviews.getUserName()}" /></li>
+                    <li class="list-group-item">User Review: <c:out value="${reviews.getUserReview()}" /></li>
+                    <li class="list-group-item">Rating: <c:out value="${reviews.getRating()}" /></li>
+                </ul>
+            </div>
+        </c:forEach>
     </div>
-    </p>
-    <p>
-        <span id="submitButton" <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
-            <input type="submit">
-			</span>
-    </p>
-</form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import safe.dal.ReviewsDao;
 
+import safe.dal.StateProfileDao;
 import safe.model.Review;
+import safe.model.StateProfile;
 
 @WebServlet("/statereview")
 public class StateReviewsRetrieve extends HttpServlet {
@@ -42,28 +44,30 @@ public class StateReviewsRetrieve extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.
-        req.getRequestDispatcher("/StateReviews.jsp").forward(req, resp);
+        Integer profileId = Integer.valueOf(req.getParameter("stateProfileId"));
         List<Review> reviewList = new ArrayList<>();
 
-        String stateName = req.getParameter("name");
-        if (stateName == null || stateName.trim().isEmpty()) {
-          messages.put("success", "Please enter a valid user name.");
+        if (profileId == null) {
+          messages.put("success", "Please enter a valid profile id.");
         } else {
           // Retrieve stateName data, and store as a message.
           try {
-			 reviewList = reviewDao.getReviewByStateName(stateName);
-            
+			 reviewList = reviewDao.getReviewByProfileId(profileId);
+              StateProfileDao stateProfileDao = StateProfileDao.getInstance();
+              StateProfile state = stateProfileDao.getStateProfileById(profileId);
+
+              messages.put("success", "Displaying results for state" + state.getStateName());
+              // Save the previous search term, so it can be used as the default
+              // in the input box when rendering FindUsers.jsp.
+              messages.put("previous stateName", state.getStateName());
           } catch (SQLException e) {
             e.printStackTrace();
             throw new IOException(e);
           }
-          messages.put("success", "Displaying results for states");
-          // Save the previous search term, so it can be used as the default
-          // in the input box when rendering FindUsers.jsp.
-          messages.put("previous stateName", stateName);
+
         }
-        req.setAttribute("stateReviews", reviewList);
-        req.getRequestDispatcher("/StateReviews.jsp").forward(req, resp);
+        req.setAttribute("reviewList", reviewList);
+        req.getRequestDispatcher("/StateReviewRetrieve.jsp").forward(req, resp);
       }
     }
 
