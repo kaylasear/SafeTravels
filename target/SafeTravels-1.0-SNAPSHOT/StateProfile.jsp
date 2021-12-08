@@ -103,6 +103,16 @@
             </div>
         </c:forEach>
     </div>
+            <p>
+            <h4 class="rating"> Rating Key:</h4>
+            <p>
+                Level 1: Safest State To Travel<br>
+                Level 2: Exercise Normal Precautions<br>
+                Level 3: Exercise Increased Caution<br>
+                Level 4: Reconsider Travel<br>
+                Level 5: Do Not Travel
+            </p>
+            </p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
