@@ -5,12 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-<%----- Bootstrap CSS ----%>
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,7 +45,7 @@
                     <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                    <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
                 <li class="nav-item">
                     <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
@@ -66,20 +60,32 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
+<div class="container-fluid">
 <h1>Create a Review</h1>
+
 <form action="reviewscreate" method="post">
     <p>
 
     <div class="input-group mb-3">
-        <span for="username" class="input-group-text" id="inputGroup-sizing-default">UserName</span>
+        <span for="username" class="input-group-text" id="inputGroup-sizing-default">Username</span>
         <input  id="username" name="username" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
+    <p>
+        <select name="stateToReview" class="form-select" aria-label="Default select example">
+            <option selected>Choose a State</option>
+            <c:forEach items="${stateProfileList}" var="state">--%>
+                <option><c:out value="${state.getStateName()}"/></option>
+            </c:forEach>
+        </select>
+
+    </p>
+
     </p>
     <p>
-    <div class="input-group mb-3">
-        <span for="user-review" class="input-group-text" id="inputGroup-sizing-default">User Review</span>
-        <input  id="user-review" name="user-review" value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a review here" name="review" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Write Your Review</label>
     </div>
     </p>
     <p>
@@ -93,6 +99,19 @@
         <button type="submit" class="btn btn-outline-primary" name="button">Submit</button>
     </p>
 </form>
+
+    <p>
+    <h4> Rating Key:</h4>
+    <p>
+        Level 1: Safest state<br>
+        Level 2: Exercise Normal Precautions<br>
+        Level 3: Exercise Increased Caution<br>
+        Level 4: Reconsider Travel<br>
+        Level 5: Do not travel
+    </p>
+    </p>
+</div>
+
 <br/><br/>
 <p>
     <span id="successMessage"><b>${messages.success}</b></span>

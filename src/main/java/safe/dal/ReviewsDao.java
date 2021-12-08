@@ -1,11 +1,8 @@
 package safe.dal;
 
 import safe.model.Review;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +24,30 @@ public class ReviewsDao {
     }
 
     public Review createReviews(Review review) throws SQLException {
-        String insertReviews = "INSERT INTO Reviews(ReviewId, UserName, Created, UserReview, Rating, ProfileId) VALUES(?, ?, ?,?,?,?);";
+        String insertReviews = "INSERT INTO Reviews(UserName, Created, UserReview, Rating, ProfileId) VALUES(?, ?,?,?,?);";
         Connection connection = null;
         PreparedStatement insertStmt = null;
+        ResultSet resultKey = null;
 
         try {
             connection = connectionManager.getConnection();
-            insertStmt = connection.prepareStatement(insertReviews);
-            insertStmt.setInt(1, review.getReviewId());
-            insertStmt.setString(2, review.getUserName());
-            insertStmt.setTimestamp(3, new Timestamp(review.getCreated().getTime()));
-            insertStmt.setString(4, (review).getUserReview());
-            insertStmt.setDouble(5, review.getRating());
-            insertStmt.setInt(6, review.getProfileId());
+            insertStmt = connection.prepareStatement(insertReviews, Statement.RETURN_GENERATED_KEYS);
+            insertStmt.setString(1, review.getUserName());
+            insertStmt.setTimestamp(2, new Timestamp(review.getCreated().getTime()));
+            insertStmt.setString(3, (review).getUserReview());
+            insertStmt.setDouble(4, review.getRating());
+            insertStmt.setInt(5, review.getProfileId());
             insertStmt.executeUpdate();
+
+            resultKey = insertStmt.getGeneratedKeys();
+            int reviewId = -1;
+
+            if (resultKey.next()) {
+                reviewId = resultKey.getInt(1);
+            } else {
+                throw new SQLException("Unable to retrieve auto-generated key");
+            }
+            review.setReviewId(reviewId);;
             return review;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,6 +77,49 @@ public class ReviewsDao {
             connection = connectionManager.getConnection();
             selectStmt = connection.prepareStatement(selectLocation);
             selectStmt.setString(1, stateName);
+            results = selectStmt.executeQuery();
+
+            while (results.next()) {
+                Integer resultReviewId = results.getInt("ReviewId");
+                String resultUserName = results.getString("UserName");
+                Timestamp resultCreate = new Timestamp(results.getTimestamp("Created").getTime());
+                String resultUserReview = results.getString("UserReview");
+                Double resultRating = results.getDouble("Rating");
+                Integer resultProfileId = results.getInt("ProfileId");
+                Review resultReview = new Review(resultReviewId, resultUserName,resultCreate,resultUserReview,resultRating,resultProfileId);
+                reviewList.add(resultReview);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if(connection != null) {
+                connection.close();
+            }
+            if(selectStmt != null) {
+                selectStmt.close();
+            }
+            if(results != null) {
+                results.close();
+            }
+        }
+        return reviewList;
+    }
+
+    public List<Review> getReviewByProfileId(Integer profileId) throws SQLException {
+
+        List<Review> reviewList = new ArrayList<Review>();
+        String selectLocation = "SELECT ReviewId, UserName, Created, UserReview, Rating, ProfileId " +
+                "FROM Reviews " +
+                "WHERE ProfileId = ?;";
+        Connection connection = null;
+        PreparedStatement selectStmt = null;
+        ResultSet results = null;
+
+        try {
+            connection = connectionManager.getConnection();
+            selectStmt = connection.prepareStatement(selectLocation);
+            selectStmt.setInt(1, profileId);
             results = selectStmt.executeQuery();
 
             while (results.next()) {
