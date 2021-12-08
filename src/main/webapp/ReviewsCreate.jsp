@@ -74,7 +74,7 @@
     <p>
         <select name="stateToReview" class="form-select" aria-label="Default select example">
             <option selected>Choose a State</option>
-            <c:forEach items="${stateProfileList}" var="state">--%>
+            <c:forEach items="${stateProfileList}" var="state">
                 <option><c:out value="${state.getStateName()}"/></option>
             </c:forEach>
         </select>
@@ -101,13 +101,13 @@
 </form>
 
     <p>
-    <h4> Rating Key:</h4>
+    <h4 class="rating"> Rating Key:</h4>
     <p>
-        Level 1: Safest state<br>
+        Level 1: Safest State To Travel<br>
         Level 2: Exercise Normal Precautions<br>
         Level 3: Exercise Increased Caution<br>
         Level 4: Reconsider Travel<br>
-        Level 5: Do not travel
+        Level 5: Do Not Travel
     </p>
     </p>
 </div>

@@ -58,7 +58,19 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
+
 <div class="container-fluid">
+    <p>
+    <h4 class="rating"> Rating Key:</h4>
+    <p>
+        Level 1: Safest State To Travel<br>
+        Level 2: Exercise Normal Precautions<br>
+        Level 3: Exercise Increased Caution<br>
+        Level 4: Reconsider Travel<br>
+        Level 5: Do Not Travel
+    </p>
+    </p>
+
     <h1>${messages.title}</h1>
     <div class="row">
         <c:forEach items="${reviewList}" var="reviews" >
@@ -76,6 +88,5 @@
     </div>
 
 </div>
-
 </body>
 </html>
