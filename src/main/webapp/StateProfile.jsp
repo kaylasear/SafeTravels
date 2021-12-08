@@ -45,7 +45,7 @@
                     <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                    <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
                 <li class="nav-item">
                     <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
@@ -89,12 +89,10 @@
                         <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
                             View Counties
                         </a>
-                    </div>
-                    <div class="card-body">
+                        <br>
                         <a class="text-decoration-none" href="statereview?stateProfileId=<c:out value="${stateProfile.getProfileId()}"/>">
                             View Reviews
                         </a>
-                    </div>
                 </div>
             </div>
         </c:forEach>

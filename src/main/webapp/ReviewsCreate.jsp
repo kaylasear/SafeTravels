@@ -45,7 +45,7 @@
                     <a href="UserCreate.jsp" class="nav-link m-2 menu-item">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
+                    <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
                 <li class="nav-item">
                     <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
@@ -60,6 +60,7 @@
 </div>
 <%--End Navigation Bar--%>
 <body>
+<div class="container-fluid">
 <h1>Create a Review</h1>
 
 <form action="reviewscreate" method="post">
@@ -98,16 +99,19 @@
         <button type="submit" class="btn btn-outline-primary" name="button">Submit</button>
     </p>
 </form>
-<p>
+
+    <p>
     <h4> Rating Key:</h4>
-<p>
-    Level 1: Safest state<br>
-    Level 2: Exercise Normal Precautions<br>
-    Level 3: Exercise Increased Caution<br>
-    Level 4: Reconsider Travel<br>
-    Level 5: Do not travel
-</p>
-</p>
+    <p>
+        Level 1: Safest state<br>
+        Level 2: Exercise Normal Precautions<br>
+        Level 3: Exercise Increased Caution<br>
+        Level 4: Reconsider Travel<br>
+        Level 5: Do not travel
+    </p>
+    </p>
+</div>
+
 <br/><br/>
 <p>
     <span id="successMessage"><b>${messages.success}</b></span>
