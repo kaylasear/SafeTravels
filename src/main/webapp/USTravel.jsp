@@ -45,8 +45,14 @@
                 <li class="nav-item">
                     <a href="ReviewsCreate.jsp" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
-                <li class="nav-item">
-                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Wishlist
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="WishListCreate.jsp">Create Wishlist</a>
+                        <a class="dropdown-item" href="WishListDelete.jsp">Delete Wishlist</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
@@ -72,24 +78,31 @@
 </form>
 <br/>
 <h1>State Travel Data</h1>
-<table border="1">
-    <tr>
-        <th>State Name</th>
-        <th>State FIPS</th>
-        <th>Profile ID</th>
-        <th>Population Staying at Home</th>
-        <th>Population Not Staying at home</th>
-        <th>Percent of population taking trips</th>
-    </tr>
-        <tr>
-            <td><c:out value="${usTravelState.getStateName()}" /></td>
-            <td><c:out value="${usTravelState.getStateFIPS()}" /></td>
-            <td><c:out value="${usTravelState.getStateProfileID()}" /></td>
-            <td><c:out value="${usTravelState.getPopStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPopNotStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPercentTakingTrips()}" /></td>
-        </tr>
-</table>
+<div class="col">
+    <div class="m-4 card" style="width: 18rem;">
+        <div class="card-body">
+            <h4 class="card-title"><c:out value="${usTravelState.getStateName()}"  /></h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">State FIPS: <c:out value="${usTravelState.getStateFIPS()}"  /></li>
+            <li class="list-group-item">Population Staying at home: <c:out value="${usTravelState.getPopStayingAtHome()}" /></li>
+            <li class="list-group-item">Population Not staying at home: <c:out value="${usTravelState.getPopNotStayingAtHome()}" /></li>
+            <li class="list-group-item">Percentage taking trips: <c:out value="${usTravelState.getPercentTakingTrips()}" /></li>
+
+        </ul>
+        <div class="card-body">
+            <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${usTravelState.getStateProfileID()}"/>">
+                View Counties
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
 
