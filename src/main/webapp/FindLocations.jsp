@@ -85,14 +85,13 @@
                         <%--            <img src="..." class="card-img-top" alt="...">--%>
                     <div class="card-body">
                         <h5 class="card-title"><c:out value="${location.getCityName()}" /></h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">City ID: <c:out value="${location.getCityId()}" /></li>
                         <li class="list-group-item">County: <c:out value="${location.getCountyName()}" /></li>
                     </ul>
                     <div class="card-body">
-                        <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${location.getStateProfileId()}"/>">
+                        <a class="text-decoration-none" href="stateprofile?name=<c:out value="${location.getStateName()}"/>">
                                 ${location.getStateName()}
                         </a>
                     </div>
