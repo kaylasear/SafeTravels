@@ -66,15 +66,14 @@
 <body>
 
 <div class="container-fluid">
+
     <p>
-    <h4 class="rating"> Rating Key:</h4>
-    <p>
-        Level 1: Safest State To Travel<br>
-        Level 2: Exercise Normal Precautions<br>
-        Level 3: Exercise Increased Caution<br>
-        Level 4: Reconsider Travel<br>
-        Level 5: Do Not Travel
-    </p>
+    <h6 class="rating"><u>Rating Key</u></h6>
+    Rating 1: Safest State To Travel<br>
+    Rating 2: Exercise Normal Precautions<br>
+    Rating 3: Exercise Increased Caution<br>
+    Rating 4: Reconsider Travel<br>
+    Rating 5: Do Not Travel
     </p>
 
     <h1>${messages.title}</h1>
@@ -93,5 +92,9 @@
         </c:forEach>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>

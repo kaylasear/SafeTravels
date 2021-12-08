@@ -19,10 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ServeStateProfiles extends HttpServlet {
 
   protected StateProfileDao stateProfileDao;
+  protected USTravelDao usTravelDao;
 
   @Override
   public void init() throws ServletException {
     stateProfileDao = StateProfileDao.getInstance();
+    usTravelDao = USTravelDao.getInstance();
   }
 
   @Override
@@ -33,6 +35,7 @@ public class ServeStateProfiles extends HttpServlet {
     req.setAttribute("messages", messages);
 
     List<StateProfile> stateProfiles = new ArrayList<>();
+    USTravel usTravel = null;
 
     String stateName = req.getParameter("name");
     if (stateName == null || stateName.trim().isEmpty()) {
@@ -42,6 +45,8 @@ public class ServeStateProfiles extends HttpServlet {
       try {
         StateProfile stateProfile = stateProfileDao.getStateProfileByName(stateName);
         stateProfiles.add(stateProfile);
+        
+        usTravel = usTravelDao.getTravelStatisticsByStateName(stateName);
       } catch (SQLException e) {
         e.printStackTrace();
         throw new IOException(e);
@@ -52,6 +57,7 @@ public class ServeStateProfiles extends HttpServlet {
       messages.put("previous stateName", stateName);
     }
     req.setAttribute("stateProfiles", stateProfiles);
+    req.setAttribute("usTravel", usTravel);
     req.getRequestDispatcher("/StateProfile.jsp").forward(req, resp);
   }
 

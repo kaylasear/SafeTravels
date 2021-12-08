@@ -17,6 +17,9 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
 
+<%--    Chart.js script--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>State Profiles</title>
 </head>
@@ -65,8 +68,8 @@
     </nav>
 </div>
 <%--End Navigation Bar--%>
-<body>
-<div class="container-fluid">
+<body onload="drawChart()">
+<div class="container-fluid mx-auto">
     <form action="stateprofile" method="get">
         <h1>State Profiles</h1>
         <p>
@@ -74,12 +77,22 @@
             <input id="name" name="name" value="${fn:escapeXml(param.name)}">
         </p>
         <p>
-            <button type="submit" class="btn btn-outline-primary" name="button">Search</button>
-            <br/><br/>
+            <button type="submit" class="btn btn-outline-primary mx-auto" name="button">Search</button>
         </p>
     </form>
-    <span id="successMessage"><b>${messages.success}</b></span>
+    <span id="successMessage">${messages.success}</span>
+
+    <p>
+    <h6 class="rating"> <u>Rating Key</u></h6>
+        Rating 1: Safest State To Travel<br>
+        Rating 2: Exercise Normal Precautions<br>
+        Rating 3: Exercise Increased Caution<br>
+        Rating 4: Reconsider Travel<br>
+        Rating 5: Do Not Travel
+    </p>
+
     <div class="row">
+
         <c:forEach items="${stateProfiles}" var="stateProfile" >
             <div class="col">
                 <div class="m-4 card" style="width: 18rem;">
@@ -100,22 +113,33 @@
                             View Reviews
                         </a>
                 </div>
+
+<%--                    Pie Chart displaying travel data for certain state--%>
+                    <script type="text/javascript" items="${usTravel}" var="usTravel">
+                        function drawChart() {
+                            const population = [<c:out value="${usTravel.getPopStayingAtHome()}"/>, <c:out value="${usTravel.getPopNotStayingAtHome()}"/>];
+                            const populationStats = ['PopStayingAtHome', 'PopNotStayingAtHome'];
+                            new Chart('myChart', {
+                                type: 'pie',
+                                data: {
+                                    labels: populationStats,
+                                    datasets: [{
+                                        label: 'Population Travel Data',
+                                        data: population,
+                                        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)']
+                                    }]
+                                },
+
+                            });
+                        }
+                    </script>
+                    <canvas id="myChart" width="800" height="400"></canvas>
             </div>
         </c:forEach>
     </div>
-            <p>
-            <h4 class="rating"> Rating Key:</h4>
-            <p>
-                Level 1: Safest State To Travel<br>
-                Level 2: Exercise Normal Precautions<br>
-                Level 3: Exercise Increased Caution<br>
-                Level 4: Reconsider Travel<br>
-                Level 5: Do Not Travel
-            </p>
-            </p>
-</div>
 </div>
 
+</div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
