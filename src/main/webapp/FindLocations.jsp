@@ -91,7 +91,7 @@
                         <li class="list-group-item">County: <c:out value="${location.getCountyName()}" /></li>
                     </ul>
                     <div class="card-body">
-                        <a class="text-decoration-none" href="countyprofile?stateProfileId=<c:out value="${location.getStateProfileId()}"/>">
+                        <a class="text-decoration-none" href="stateprofile?name=<c:out value="${location.getStateName()}"/>">
                                 ${location.getStateName()}
                         </a>
                     </div>
