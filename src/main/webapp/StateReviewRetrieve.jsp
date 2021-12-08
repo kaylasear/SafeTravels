@@ -45,8 +45,14 @@
                 <li class="nav-item">
                     <a href="reviewscreate" class="nav-link m-2 menu-item">Create a Review</a>
                 </li>
-                <li class="nav-item">
-                    <a href="WishListCreate.jsp" class="nav-link m-2 menu-item">Wishlist</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link m-2 menu-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Wishlist
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item " href="WishListCreate.jsp">Create Wishlist</a>
+                        <a class="dropdown-item" href="WishListDelete.jsp">Delete Wishlist</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="About.jsp" class="nav-link m-2 menu-item">About</a>
@@ -86,7 +92,6 @@
             </div>
         </c:forEach>
     </div>
-
 </div>
 </body>
 </html>
