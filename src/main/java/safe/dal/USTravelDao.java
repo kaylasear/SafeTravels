@@ -20,12 +20,12 @@ public class USTravelDao {
         return instance;
     }
 
-    public USTravel getTravelStatisticsByStateName(String statename) throws SQLException {
+    public USTravel getTravelStatisticsByStateName(String inputString) throws SQLException {
         String selectTravelStatsByName = "SELECT USTravel.TravelID as TravelID, USTravel.StateFIPS as StateFIPS," +
                 " USTravel.ProfileId as ProfileId, USTravel.USPopStayingAtHome  USPopStayingAtHome," +
                 "USTravel.USPopNotStayingAtHome as USPopNotStayingAtHome, USTravel.PercentTakingTrips as PercentTakingTrips," +
                 "StateProfile.StateName as StateName FROM USTravel INNER JOIN StateProfile on USTravel.ProfileId = StateProfile.ProfileId" +
-                " WHERE StateProfile.StateName = ?;";
+                " WHERE StateProfile.StateName = ? OR StateProfile.StateCode = ?;";
         System.out.println(selectTravelStatsByName);
         Connection connection = null;
         PreparedStatement selectStmt = null;
@@ -34,7 +34,9 @@ public class USTravelDao {
         try {
             connection = connectionManager.getConnection();
             selectStmt = connection.prepareStatement(selectTravelStatsByName);
-            selectStmt.setString(1, statename);
+            selectStmt.setString(1, inputString);
+            selectStmt.setString(2, inputString);
+
             result = selectStmt.executeQuery();
 
 

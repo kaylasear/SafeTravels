@@ -2,8 +2,6 @@ package safe.model;
 
 import java.util.Date;
 
-//import java.text.*;
-//import java.text.spi.*;
 
 /**
  * This class represents a Policy object.
@@ -78,7 +76,7 @@ public class Policy {
 	}
 
 	public String getActive() {
-		return active;
+		return this.active;
 	}
 
 	public void setActive(String active) {

@@ -1,8 +1,6 @@
 package safe.model;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Review {
     protected Integer ReviewId;
@@ -19,6 +17,14 @@ public class Review {
         this.UserReview = userReview;
         this.Rating = rating;
         this.ProfileId = profileId;
+    }
+
+    public Review(String userName, Timestamp created, String userReview, Double rating, Integer profileId) {
+        UserName = userName;
+        Created = created;
+        UserReview = userReview;
+        Rating = rating;
+        ProfileId = profileId;
     }
 
     public Integer getReviewId() {
@@ -68,4 +74,7 @@ public class Review {
     public void setProfileId(Integer profileId) {
         ProfileId = profileId;
     }
+
+
+
 }

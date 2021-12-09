@@ -62,7 +62,6 @@ public class ServePolicy extends HttpServlet {
             e.printStackTrace();
             throw new IOException(e);
         }
-        System.out.println(policyList);
         req.setAttribute("policyList", policyList);
         req.getRequestDispatcher("/Policy.jsp").forward(req, resp);
 
