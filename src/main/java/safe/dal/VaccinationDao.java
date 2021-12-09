@@ -70,9 +70,9 @@ public class VaccinationDao {
 				Vaccination vaccinationById = new Vaccination(resultVaccinationId, resultCountyName, resultCountyFIPS,
 						resultStateCode, resultDate, resultVaccinationSeriesCompletePct, resultVaccinationSeriesCompletePop,
 					completenessPct);
+				System.out.println(vaccinationId);
 				return vaccinationById;
 			}
-			
 	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -89,6 +89,59 @@ public class VaccinationDao {
 				}
 			}
 			return null ;
-		}		
+		}
+
+	public Vaccination getVaccinationInformationByCountyFips(Integer fips) throws SQLException {
+
+		String selectVaccination =
+				"SELECT vaccinationId, countyName, countyFIPS, stateCode, date, vaccinationSeriesCompletePct,vaccinationSeriesCompletePop,completenessPct " +
+						"FROM Vaccination " +
+						"WHERE countyFIPS=?;";
+
+		Connection connection = null;
+		PreparedStatement selectStmt = null;
+		ResultSet results = null;
+
+		try {
+			connection = connectionManager.getConnection();
+			selectStmt = connection.prepareStatement(selectVaccination);
+			selectStmt.setInt(1, fips);
+			results = selectStmt.executeQuery();
+
+			// No parent class instances
+
+			if(results.next()) {
+				Integer resultVaccinationId = results.getInt("VaccinationId");
+				String resultCountyName = results.getString("CountyName");
+				Integer resultCountyFIPS = results.getInt("CountyFIPS");
+				String resultStateCode = results.getString("StateCode");
+				Date resultDate =  new Date(results.getTimestamp("Date").getTime());
+				Double resultVaccinationSeriesCompletePct = results.getDouble("VaccinationSeriesCompletePct");
+				BigInteger resultVaccinationSeriesCompletePop = BigInteger.valueOf(results.getInt("VaccinationSeriesCompletePop"));
+				Double completenessPct = results.getDouble("CompletenessPct");
+
+				Vaccination vaccinationByFips = new Vaccination(resultVaccinationId, resultCountyName, resultCountyFIPS,
+						resultStateCode, resultDate, resultVaccinationSeriesCompletePct, resultVaccinationSeriesCompletePop,
+						completenessPct);
+
+				return vaccinationByFips;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			if(connection != null) {
+				connection.close();
+			}
+			if(selectStmt != null) {
+				selectStmt.close();
+			}
+			if(results != null) {
+				results.close();
+			}
+		}
+		return null ;
+	}
 }
 

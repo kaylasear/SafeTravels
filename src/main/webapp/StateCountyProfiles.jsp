@@ -26,7 +26,7 @@
                     <li class="list-group-item">Total Deaths: <c:out value="${countyProfiles.getCovidDeaths()}" /></li>
                 </ul>
                 <div class="card-body">
-                    <a class="text-decoration-none" href="vaccination?vaccinationId=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
+                    <a class="text-decoration-none" href="vaccination?fips=<c:out value="${countyProfiles.getCountyFIPS()}"/>">
                         Vaccination Rates
                     </a>
                     <br>
