@@ -28,27 +28,22 @@
 </form>
 <br/>
 <h1>Vaccination Information</h1>
-<table border="1">
+<div class="row">
+    <c:forEach items="${vacId}" var="vacId" ><div class="col">
+            <div class="m-4 card" style="width: 18rem;">
+                <div class="card-body">
+                    <h4 class="card-title"><c:out value="${messages.countyName} Vaccination Rates" /></h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">State Code: <c:out value="${vacId.getStateCode()}" /></li>
+                    <li class="list-group-item">Vaccination Series Complete Percent: <c:out value="${vacId.getVaccinationSeriesCompletePct()}" /></li>
+                    <li class="list-group-item">Vaccination Series Complete Population: <c:out value="${vacId.getVaccinationSeriesCompletePop()}" /></li>
+                </ul>
+            </div>
+        </div>
+    </c:forEach></div>
 
-    <tr>
-		<th>State Name</th>
-        <th>State FIPS</th>
-        <th>Profile ID</th>
-        <th>Population Staying at Home</th>
-        <th>Population Not Staying at home</th>
-        <th>Percent of population taking trips</th>
-    </tr>
-    
-   		<tr>
-            <td><c:out value="${usTravelState.getStateName()}" /></td>
-            <td><c:out value="${usTravelState.getStateFIPS()}" /></td>
-            <td><c:out value="${usTravelState.getStateProfileID()}" /></td>
-            <td><c:out value="${usTravelState.getPopStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPopNotStayingAtHome()}" /></td>
-            <td><c:out value="${usTravelState.getPercentTakingTrips()}" /></td>
-        </tr>
 
-</table>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

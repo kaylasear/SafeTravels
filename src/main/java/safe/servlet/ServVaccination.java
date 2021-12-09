@@ -50,7 +50,7 @@ public class ServVaccination extends HttpServlet {
 			}
 			
 
-		req.setAttribute("vaccinationId", vacId);
+		req.setAttribute("vacId", vacId);
 		req.getRequestDispatcher("/Vaccination.jsp").forward(req, resp);
 		
 	}
