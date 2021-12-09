@@ -69,7 +69,15 @@
     <a href="StateProfile.jsp" class="btn btn-primary" role="button">Search States</a>
     <a href="USTravel.jsp" class="btn btn-primary" role="button">Search US Travel</a>
   </div>
+
   <div class="p-4 container">
+    <div class="row">
+      <div id="chart" style="width: 75%; margin: auto"></div>
+      <div class="mx-2 col">
+        <div id="links"></div>
+      </div>
+    </div>
+    <hr/>
     <div class="row">
 
       <div class="col text-left">
@@ -122,6 +130,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+
+  <script type="module">
+      import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+      import define from "https://api.observablehq.com/d/137d57ab7480a90e.js?v=3";
+      new Runtime().module(define, name => {
+          if (name === "chart") return new Inspector(document.querySelector("#chart"));
+          if (name === "Links") return new Inspector(document.querySelector("#links"));
+      });
+  </script>
 
 </html>
 
